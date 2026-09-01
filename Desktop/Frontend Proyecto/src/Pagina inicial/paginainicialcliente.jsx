@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import './paginainicialcliente.css';
 
 function Ticket({ ticket }) {
 

@@ -1,4 +1,5 @@
 import { useState } from "react";
+import './Perfil.css';
 
 function Perfil({
     usuario,

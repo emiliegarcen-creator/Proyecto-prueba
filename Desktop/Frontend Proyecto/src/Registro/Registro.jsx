@@ -1,4 +1,5 @@
 import { useState } from "react";
+import './Registro.css';
 
 function Registro({ cambiarPagina }) {
 
