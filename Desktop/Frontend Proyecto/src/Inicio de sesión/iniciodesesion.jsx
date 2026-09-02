@@ -7,7 +7,7 @@ export function InicioSesion({
     setRol,
     cambiarPagina
 }) {
-
+    
     const [nombreUsuario, setNombreUsuario] = useState("");
     const [password, setPassword] = useState("");
 

@@ -1,3 +1,4 @@
+
 body {
     display: flex;
     flex-direction: column;
@@ -33,15 +34,18 @@ p {
   border: 3px solid #000000;
   border-radius: 12px;
   box-shadow: 0px 4px 10px #C6B1D7; /*Borde externo*/
-  align-content: center;
+  align-self: center;
+
 }
 
 /*Botones*/
 .botones{
     width: 18%;
   height: 5%;
+  cursor: pointer;
 }
 
+/*PONER EL ID EN LOS BOTONES*/
 #boton-subir{
     background-color: #adbbdf;
 }
