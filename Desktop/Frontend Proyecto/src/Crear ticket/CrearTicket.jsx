@@ -1,3 +1,4 @@
+import "./CrearTicket.css";
 import { useState } from "react";
 
 function CrearTicket({
@@ -9,6 +10,8 @@ function CrearTicket({
     const [cargador, setCargador] = useState("");
     const [modelo, setModelo] = useState("");
     const [locker, setLocker] = useState("");
+    const [imagen, setImagen] = useState(null);
+ 
 
     const enviarTicket = (e) => {
 
@@ -79,6 +82,14 @@ function CrearTicket({
         );
 
     };
+  const manejarCambio = (e) => {
+    const archivo = e.target.files[0];
+    if (archivo) {
+      setImagen(URL.createObjectURL(archivo));
+    }
+  };
+
+    
 
     return (
 
@@ -89,6 +100,10 @@ function CrearTicket({
             <form
                 onSubmit={enviarTicket}
             >
+                    <div>
+      <input type="file" accept="image/*" onChange={manejarCambio} />
+      {imagen && <img src={imagen} alt="Vista previa" />}
+    </div>
                 <div>
 
                     <label>
