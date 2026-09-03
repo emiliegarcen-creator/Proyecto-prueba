@@ -1,0 +1,338 @@
+/* =========================
+   PÁGINA PRINCIPAL
+   ========================= */
+
+.pagina-principal {
+    width: 100%;
+    min-height: 100vh;
+
+    background-color: white;
+
+    font-family: Arial, sans-serif;
+
+    position: relative;
+}
+
+
+/* =========================
+   BARRA SUPERIOR
+   ========================= */
+
+.pagina-header {
+    width: 100%;
+    height: 50px;
+
+    background-color: #8dbbdd;
+
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+
+    padding: 0 20px;
+
+    box-sizing: border-box;
+}
+
+
+/* =========================
+   USUARIO
+   ========================= */
+
+.usuario-boton {
+    display: flex;
+    align-items: center;
+
+    gap: 7px;
+
+    border: none;
+
+    background: transparent;
+
+    color: white;
+
+    font-size: 12px;
+
+    padding: 0;
+}
+
+.usuario-icono {
+    width: 30px;
+    height: 30px;
+
+    border-radius: 50%;
+
+    border: 1px solid #555;
+
+    background-color: white;
+
+    color: #555;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 17px;
+}
+
+
+/* =========================
+   CONTENIDO
+   ========================= */
+
+.pagina-contenido {
+    width: 100%;
+
+    padding: 40px 30px 100px;
+
+    box-sizing: border-box;
+}
+
+
+/* =========================
+   TÍTULO
+   ========================= */
+
+.pagina-contenido h1 {
+    margin: 0 0 25px;
+
+    font-size: 28px;
+
+    font-weight: 500;
+
+    color: #222;
+
+    text-align: left;
+}
+
+
+/* =========================
+   LISTA DE TICKETS
+   ========================= */
+
+.tickets-lista {
+    width: 100%;
+
+    max-width: 800px;
+
+    margin: 0 auto;
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 15px;
+}
+
+
+/* =========================
+   TICKET
+   ========================= */
+
+.ticket {
+    width: 100%;
+
+    background-color: #c5a9d8;
+
+    border-radius: 12px;
+
+    padding: 15px 18px;
+
+    box-sizing: border-box;
+
+    border: 1px solid #a98dbd;
+}
+
+
+/* TÍTULO DEL TICKET */
+
+.ticket h3 {
+    margin: 0 0 10px;
+
+    font-size: 17px;
+
+    color: #222;
+
+    font-weight: 600;
+}
+
+
+/* DESCRIPCIÓN */
+
+.ticket-descripcion {
+    margin: 0 0 10px;
+
+    font-size: 13px;
+
+    color: #333;
+
+    line-height: 1.4;
+}
+
+
+/* DATOS */
+
+.ticket-datos {
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    gap: 5px 20px;
+}
+
+.ticket-datos p,
+.ticket-lugar,
+.ticket-estado {
+    margin: 0;
+
+    font-size: 12px;
+
+    color: #333;
+}
+
+
+/* ESTADO */
+
+.ticket-estado {
+    margin-top: 12px;
+
+    font-weight: bold;
+}
+
+
+/* =========================
+   CUANDO NO HAY TICKETS
+   ========================= */
+
+.sin-tickets {
+    width: 100%;
+
+    min-height: 120px;
+
+    background-color: #f5f1f7;
+
+    border: 1px dashed #aaa;
+
+    border-radius: 12px;
+
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+
+    color: #666;
+
+    font-size: 14px;
+}
+
+
+/* =========================
+   BOTÓN +
+   ========================= */
+
+.crear-ticket-menu {
+    position: fixed;
+
+    right: 25px;
+    bottom: 25px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: flex-end;
+
+    gap: 10px;
+}
+
+
+/* CÍRCULO + */
+
+.boton-mas {
+    width: 55px;
+    height: 55px;
+
+    border-radius: 50%;
+
+    border: none;
+
+    background-color: #a9b9df;
+
+    color: white;
+
+    font-size: 32px;
+
+    line-height: 1;
+}
+
+
+/* =========================
+   OPCIONES
+   ========================= */
+
+.opciones-tickets {
+    width: 230px;
+
+    background-color: white;
+
+    border: 1px solid #aaa;
+
+    border-radius: 10px;
+
+    padding: 8px;
+
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 6px;
+}
+
+.opciones-tickets button {
+    width: 100%;
+
+    border: none;
+
+    border-radius: 7px;
+
+    background-color: #e7d7ec;
+
+    padding: 9px;
+
+    color: #333;
+
+    font-size: 11px;
+
+    text-align: left;
+}
+
+.opciones-tickets button:hover {
+    background-color: #d9c3e0;
+}
+
+
+/* =========================
+   RESPONSIVE
+   ========================= */
+
+@media (max-width: 600px) {
+
+    .pagina-contenido {
+        padding: 30px 15px 100px;
+    }
+
+    .pagina-contenido h1 {
+        font-size: 24px;
+    }
+
+    .ticket-datos {
+        grid-template-columns: 1fr;
+    }
+
+    .crear-ticket-menu {
+        right: 15px;
+        bottom: 15px;
+    }
+
+}

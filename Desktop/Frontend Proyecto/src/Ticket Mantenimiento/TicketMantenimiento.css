@@ -1,0 +1,236 @@
+.mantenimiento-pantalla {
+    width: 100%;
+    min-height: 100vh;
+
+    background-color: white;
+
+    position: relative;
+
+    font-family: Arial, sans-serif;
+}
+
+/* =========================
+   BARRA SUPERIOR
+   ========================= */
+
+.mantenimiento-header {
+    width: 100%;
+    height: 27px;
+
+    background-color: #8dbbdd;
+
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+
+    padding-right: 7px;
+
+    color: white;
+
+    font-size: 7px;
+
+    gap: 3px;
+}
+
+.mantenimiento-header button {
+    width: 14px;
+    height: 14px;
+
+    border-radius: 50%;
+
+    border: 1px solid #555;
+
+    background-color: white;
+
+    font-size: 9px;
+
+    padding: 0;
+
+    cursor: pointer;
+}
+
+/* =========================
+   BOTÓN VOLVER
+   ========================= */
+
+.mantenimiento-volver {
+    position: absolute;
+
+    left: 6px;
+    bottom: 7px;
+
+    width: 13px;
+    height: 13px;
+
+    border-radius: 50%;
+
+    border: 1px solid #555;
+
+    background-color: white;
+
+    font-size: 8px;
+
+    padding: 0;
+
+    cursor: pointer;
+}
+
+/* =========================
+   CONTENIDO
+   ========================= */
+
+.mantenimiento-contenido {
+    display: flex;
+
+    justify-content: center;
+
+    padding-top: 43px;
+}
+
+/* =========================
+   CAJA LILA
+   ========================= */
+
+.mantenimiento-caja {
+    width: 162px;
+
+    background-color: #c5a9d8;
+
+    border-radius: 9px;
+
+    padding: 7px;
+}
+
+/* =========================
+   FORMULARIO BLANCO
+   ========================= */
+
+.mantenimiento-caja form {
+    width: 100%;
+
+    background-color: white;
+
+    border: 1px solid #333;
+
+    border-radius: 7px;
+
+    padding: 7px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 5px;
+}
+
+/* =========================
+   CAMPOS
+   ========================= */
+
+.mantenimiento-campo {
+    position: relative;
+
+    display: flex;
+
+    flex-direction: column;
+}
+
+.mantenimiento-campo label {
+    font-size: 6px;
+
+    color: #222;
+
+    margin-bottom: 2px;
+}
+
+.mantenimiento-campo input {
+    width: 100%;
+    height: 16px;
+
+    border: 1px solid #aaa;
+
+    border-radius: 5px;
+
+    padding: 2px 5px;
+
+    font-size: 7px;
+
+    outline: none;
+}
+
+/* =========================
+   DESCRIPCIÓN
+   ========================= */
+
+.mantenimiento-campo textarea {
+    width: 100%;
+    height: 32px;
+
+    resize: none;
+
+    border: 1px solid #aaa;
+
+    border-radius: 5px;
+
+    padding: 3px 5px;
+
+    font-family: Arial, sans-serif;
+
+    font-size: 7px;
+
+    outline: none;
+}
+
+.mantenimiento-campo textarea::placeholder,
+.mantenimiento-campo input::placeholder {
+    color: #555;
+}
+
+.mantenimiento-campo small {
+    position: absolute;
+
+    right: 4px;
+    bottom: 4px;
+
+    font-size: 4px;
+
+    color: #555;
+}
+
+/* =========================
+   BOTONES
+   ========================= */
+
+.mantenimiento-botones {
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    gap: 5px;
+
+    margin-top: 1px;
+}
+
+.mantenimiento-botones button {
+    height: 15px;
+
+    border: none;
+
+    border-radius: 8px;
+
+    font-size: 7px;
+
+    cursor: pointer;
+}
+
+.mantenimiento-subir {
+    background-color: #a9b9df;
+
+    color: white;
+}
+
+.mantenimiento-cancelar {
+    background-color: #eb7378;
+
+    color: white;
+}

@@ -1,4 +1,5 @@
 import { useState } from "react";
+import "./Registro.css";
 
 function Registro({ cambiarPagina }) {
 
@@ -10,7 +11,6 @@ function Registro({ cambiarPagina }) {
     const [confirmarContraseña, setConfirmarContraseña] = useState("");
 
     async function enviarFormulario(e) {
-
         e.preventDefault();
 
         // Validaciones
@@ -31,144 +31,208 @@ function Registro({ cambiarPagina }) {
             return;
         }
 
-        const response = await fetch(
-            "http://localhost:3000/usuarios",
-            {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify({
-                    nombre,
-                    email,
-                    cedula,
-                    rol,
-                    contraseña,
-                    confirmarContraseña,
-                }),
+        try {
+            const response = await fetch(
+                "http://localhost:3000/usuarios",
+                {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({
+                        nombre,
+                        email,
+                        cedula,
+                        rol,
+                        contraseña,
+                        confirmarContraseña,
+                    }),
+                }
+            );
+
+            if (!response.ok) {
+                throw new Error("Error al guardar el usuario.");
             }
-        );
 
-        if (!response.ok) {
-            throw new Error("Error al guardar el usuario.");
+            const data = await response.json();
+
+            alert("Usuario registrado correctamente.");
+
+            console.log(data);
+
+            // Limpiar formulario
+            setNombre("");
+            setEmail("");
+            setCedula("");
+            setRol("");
+            setContraseña("");
+            setConfirmarContraseña("");
+
+            cambiarPagina("login");
+
+        } catch (error) {
+            console.error(error);
+            alert("No se pudo registrar el usuario.");
         }
-
-        const data = await response.json();
-
-        alert("Usuario registrado correctamente.");
-
-        console.log(data);
-
-        // Limpiar formulario
-        setNombre("");
-        setEmail("");
-        setCedula("");
-        setRol("");
-        setContraseña("");
-        setConfirmarContraseña("");
     }
 
     return (
-        <div>
+        <div className="registro-pantalla">
 
-            <h2>Registro de Usuario</h2>
+            {/* Barra superior */}
 
-            <form onSubmit={enviarFormulario}>
+            <header className="registro-header">
 
-                <div>
-                    <label>Nombre</label>
-                    <br />
+                <span>registro</span>
 
-                    <input
-                        type="text"
-                        value={nombre}
-                        onChange={(e) => setNombre(e.target.value)}
-                    />
-                </div>
-
-                <br />
-
-                <div>
-                    <label>Cédula</label>
-                    <br />
-
-                    <input
-                        type="number"
-                        value={cedula}
-                        onChange={(e) => setCedula(e.target.value)}
-                    />
-                </div>
-
-                <br />
-
-                <div>
-                    <label>Gmail</label>
-                    <br />
-
-                    <input
-                        type="email"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
-                    />
-                </div>
-
-                <br />
-
-                <div>
-                    <label>Rol</label>
-                    <br />
-
-                    <input
-                        type="text"
-                        value={rol}
-                        onChange={(e) => setRol(e.target.value)}
-                    />
-                </div>
-
-                <br />
-
-                <div>
-                    <label>Contraseña</label>
-                    <br />
-
-                    <input
-                        type="password"
-                        value={contraseña}
-                        onChange={(e) => setContraseña(e.target.value)}
-                    />
-                </div>
-
-                <br />
-
-                <div>
-                    <label>Confirmar Contraseña</label>
-                    <br />
-
-                    <input
-                        type="password"
-                        value={confirmarContraseña}
-                        onChange={(e) =>
-                            setConfirmarContraseña(e.target.value)
-                        }
-                    />
-                </div>
-
-                <br />
-
-                <button type="submit">
-                    Guardar
+                <button
+                    type="button"
+                    onClick={() => cambiarPagina("login")}
+                >
+                    Iniciar Sesión
                 </button>
 
-            </form>
+            </header>
 
-            <br />
 
-            <button
-                type="button"
-                onClick={() => cambiarPagina("login")}
-            >
-                Volver al inicio de sesión
-            </button>
+            {/* Contenido */}
+
+            <main className="registro-contenido">
+
+                <div className="registro-caja">
+
+                    <form onSubmit={enviarFormulario}>
+
+                        {/* Nombre */}
+
+                        <div className="registro-campo campo-completo">
+
+                            <label>
+                                Nombre Completo
+                            </label>
+
+                            <input
+                                type="text"
+                                value={nombre}
+                                onChange={(e) =>
+                                    setNombre(e.target.value)
+                                }
+                            />
+
+                        </div>
+
+
+                        {/* Cédula */}
+
+                        <div className="registro-campo">
+
+                            <label>
+                                Cédula de Identidad
+                            </label>
+
+                            <input
+                                type="number"
+                                value={cedula}
+                                onChange={(e) =>
+                                    setCedula(e.target.value)
+                                }
+                            />
+
+                        </div>
+
+
+                        {/* Rol */}
+
+                        <div className="registro-campo">
+
+                            <label>
+                                Rol
+                            </label>
+
+                            <input
+                                type="text"
+                                value={rol}
+                                onChange={(e) =>
+                                    setRol(e.target.value)
+                                }
+                            />
+
+                        </div>
+
+
+                        {/* Mail */}
+
+                        <div className="registro-campo campo-completo">
+
+                            <label>
+                                Mail
+                            </label>
+
+                            <input
+                                type="email"
+                                value={email}
+                                onChange={(e) =>
+                                    setEmail(e.target.value)
+                                }
+                            />
+
+                        </div>
+
+
+                        {/* Contraseña */}
+
+                        <div className="registro-campo campo-completo">
+
+                            <label>
+                                Contraseña
+                            </label>
+
+                            <input
+                                type="password"
+                                value={contraseña}
+                                onChange={(e) =>
+                                    setContraseña(e.target.value)
+                                }
+                            />
+
+                        </div>
+
+
+                        {/* Confirmar contraseña */}
+
+                        <div className="registro-campo campo-completo">
+
+                            <label>
+                                Repetir Contraseña
+                            </label>
+
+                            <input
+                                type="password"
+                                value={confirmarContraseña}
+                                onChange={(e) =>
+                                    setConfirmarContraseña(
+                                        e.target.value
+                                    )
+                                }
+                            />
+
+                        </div>
+
+
+                        {/* Botón */}
+
+                        <button
+                            type="submit"
+                            className="boton-registrarse"
+                        >
+                            Registrarse
+                        </button>
+
+                    </form>
+
+                </div>
+
+            </main>
 
         </div>
     );

@@ -1,0 +1,213 @@
+/* =========================
+   PANTALLA DE REGISTRO
+   ========================= */
+
+.registro-pantalla {
+    width: 100%;
+    min-height: 100vh;
+
+    background-color: white;
+
+    font-family: Arial, sans-serif;
+
+    position: relative;
+}
+
+
+/* =========================
+   BARRA SUPERIOR
+   ========================= */
+
+.registro-header {
+    width: 100%;
+    height: 50px;
+
+    background-color: #8dbbdd;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 0 20px;
+
+    color: #222;
+
+    font-size: 18px;
+}
+
+.registro-header button {
+    border: none;
+
+    border-radius: 6px;
+
+    background-color: #e7d7ec;
+
+    color: #222;
+
+    padding: 6px 18px;
+
+    font-size: 11px;
+
+    cursor: pointer;
+}
+
+
+/* =========================
+   CONTENIDO
+   ========================= */
+
+.registro-contenido {
+    width: 100%;
+
+    min-height: calc(100vh - 50px);
+
+    display: flex;
+
+    justify-content: center;
+    align-items: flex-start;
+
+    padding-top: 55px;
+
+    box-sizing: border-box;
+}
+
+
+/* =========================
+   CAJA LILA
+   ========================= */
+
+.registro-caja {
+    width: 360px;
+
+    background-color: #c5a9d8;
+
+    border-radius: 15px;
+
+    padding: 10px;
+}
+
+
+/* =========================
+   FORMULARIO BLANCO
+   ========================= */
+
+.registro-caja form {
+    width: 100%;
+
+    background-color: white;
+
+    border: 1px solid #333;
+
+    border-radius: 10px;
+
+    padding: 14px;
+
+    display: grid;
+
+    grid-template-columns: 1fr 1fr;
+
+    gap: 9px 10px;
+}
+
+
+/* =========================
+   CAMPOS
+   ========================= */
+
+.registro-campo {
+    display: flex;
+
+    flex-direction: column;
+}
+
+.registro-campo.campo-completo {
+    grid-column: 1 / 3;
+}
+
+
+/* ETIQUETAS */
+
+.registro-campo label {
+    font-size: 10px;
+
+    color: #222;
+
+    margin-bottom: 4px;
+}
+
+
+/* INPUTS */
+
+.registro-campo input {
+    width: 100%;
+
+    height: 30px;
+
+    border: 1px solid #aaa;
+
+    border-radius: 6px;
+
+    padding: 5px 8px;
+
+    font-size: 11px;
+
+    outline: none;
+
+    background-color: white;
+}
+
+.registro-campo input:focus {
+    border-color: #8da3d5;
+}
+
+
+/* =========================
+   BOTÓN REGISTRARSE
+   ========================= */
+
+.boton-registrarse {
+    grid-column: 1 / 3;
+
+    width: 190px;
+
+    height: 32px;
+
+    justify-self: center;
+
+    margin-top: 4px;
+
+    border: none;
+
+    border-radius: 16px;
+
+    background-color: #a9b9df;
+
+    color: white;
+
+    font-size: 11px;
+
+    cursor: pointer;
+}
+
+.boton-registrarse:hover {
+    background-color: #96a9d5;
+}
+
+
+/* =========================
+   PANTALLAS PEQUEÑAS
+   ========================= */
+
+@media (max-width: 600px) {
+
+    .registro-caja {
+        width: 90%;
+
+        max-width: 360px;
+    }
+
+    .registro-header {
+        padding: 0 10px;
+    }
+
+}

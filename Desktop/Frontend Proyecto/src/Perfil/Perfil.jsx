@@ -1,4 +1,5 @@
 import { useState } from "react";
+import "./perfil.css";
 
 function Perfil({
     usuario,
@@ -8,48 +9,37 @@ function Perfil({
     cerrarSesion
 }) {
 
-    // Estado para la foto
     const [foto, setFoto] = useState(null);
 
-    // CAMBIAR FOTO
     const cambiarFoto = (e) => {
 
         const archivo = e.target.files[0];
 
-
         if (archivo) {
-
             const nuevaFoto =
-                URL.createObjectURL(
-                    archivo
-                );
+                URL.createObjectURL(archivo);
 
             setFoto(nuevaFoto);
-
         }
-
     };
 
     return (
 
         <div className="perfil">
-                //Boton de inicio
+
+            {/* Botón de inicio */}
 
             <button
                 type="button"
-
-                onClick={() =>
-                    cambiarPagina(
-                        "inicio"
-                    )
-                }
+                className="boton-inicio"
+                onClick={() => cambiarPagina("inicio")}
             >
-                Casita
+                🏠
             </button>
 
+            <main className="perfil-contenido">
 
-            <main>
-// foto de perfil
+                {/* Foto de perfil */}
 
                 <div className="foto-perfil">
 
@@ -68,77 +58,59 @@ function Perfil({
 
                     )}
 
+                    <label className="boton-camara">
 
-                   //boton para cambiar foto de perfil
-
-                    <label>
-
-                        Camarita
+                        📷
 
                         <input
                             type="file"
-
                             accept="image/*"
-
-                            onChange={
-                                cambiarFoto
-                            }
-
+                            onChange={cambiarFoto}
                             hidden
                         />
 
                     </label>
 
                 </div>
-//nombre de usuario
+
+                {/* Nombre */}
 
                 <div className="dato-perfil">
-
                     <p>
-                        {usuario ||
-                            "Nombre Completo"}
+                        {usuario || "Nombre Completo"}
                     </p>
-
                 </div>
 
-
-                //mail de usuario
+                {/* Mail */}
 
                 <div className="dato-perfil">
-
                     <p>
-                        {email ||
-                            "Mail"}
+                        {email || "Mail"}
                     </p>
-
                 </div>
 
+                {/* Rol */}
 
-                //rol
                 <div className="dato-perfil">
-
                     <p>
-                        {rol ||
-                            "Rol"}
+                        {rol || "Rol"}
                     </p>
-
                 </div>
+
+                {/* Cerrar sesión */}
 
                 <button
                     type="button"
-
-                    onClick={
-                        cerrarSesion
-                    }
+                    className="cerrar-sesion"
+                    onClick={cerrarSesion}
                 >
                     Cerrar sesión
                 </button>
 
-
             </main>
 
         </div>
-
     );
 }
+
 export default Perfil;

@@ -1,4 +1,5 @@
 import { useState } from "react";
+import "./iniciodesesion.css";
 
 export function InicioSesion({
     setUsuario,
@@ -6,111 +7,124 @@ export function InicioSesion({
     setRol,
     cambiarPagina
 }) {
-
     const [nombreUsuario, setNombreUsuario] = useState("");
     const [password, setPassword] = useState("");
 
-
     const handleSubmit = (e) => {
-
         e.preventDefault();
 
-        console.log("BOTÓN INICIAR SESIÓN PRESIONADO");
-
-
-        // Validar campos
         if (
             nombreUsuario === "" ||
             password === ""
         ) {
-
             alert("Todos los campos son obligatorios.");
-
             return;
         }
 
-
-        // Guardar usuario
         setUsuario(nombreUsuario);
-
         setEmail(nombreUsuario + "@gmail.com");
-
         setRol("Cliente");
 
-
-        console.log("LOGIN CORRECTO");
-
-        console.log("AHORA VOY A INICIO");
-
-
-        // Ir a la página principal
         cambiarPagina("inicio");
-
     };
 
-
     return (
+        <div className="login-pantalla">
 
-        <section>
+            {/* Barra superior */}
 
-            <h1>
-                Login
-            </h1>
+            <header className="login-header">
 
+                <span>login</span>
 
-            <form onSubmit={handleSubmit}>
-
-                <input
-                    type="text"
-                    placeholder="Nombre de usuario"
-                    value={nombreUsuario}
-                    onChange={(e) =>
-                        setNombreUsuario(e.target.value)
-                    }
-                />
-
-
-                <br />
-                <br />
-
-
-                <input
-                    type="password"
-                    placeholder="Password"
-                    value={password}
-                    onChange={(e) =>
-                        setPassword(e.target.value)
-                    }
-                />
-
-
-                <br />
-                <br />
-
-
-                <button type="submit">
-                    Iniciar sesión
+                <button
+                    type="button"
+                    onClick={() => cambiarPagina("registro")}
+                >
+                    Registrarse
                 </button>
 
-            </form>
+            </header>
 
 
-            <br />
+            {/* Contenido */}
+
+            <main className="login-contenido">
+
+                {/* Icono de usuario */}
+
+                <div className="login-icono">
+                    ♙
+                </div>
 
 
-            <button
-                type="button"
-                onClick={() => {
-                    console.log("BOTÓN CREAR CUENTA");
+                {/* Caja lila */}
 
-                    cambiarPagina("registro");
-                }}
-            >
-                Crear una cuenta
-            </button>
+                <div className="login-caja">
 
-        </section>
+                    {/* Formulario blanco */}
 
+                    <form onSubmit={handleSubmit}>
+
+                        <div className="login-campo">
+
+                            <label>
+                                Nombre de Usuario
+                            </label>
+
+                            <input
+                                type="text"
+                                placeholder="Nombre de Usuario"
+                                value={nombreUsuario}
+                                onChange={(e) =>
+                                    setNombreUsuario(e.target.value)
+                                }
+                            />
+
+                        </div>
+
+
+                        <div className="login-campo">
+
+                            <label>
+                                Contraseña
+                            </label>
+
+                            <input
+                                type="password"
+                                placeholder="Contraseña"
+                                value={password}
+                                onChange={(e) =>
+                                    setPassword(e.target.value)
+                                }
+                            />
+
+                        </div>
+
+
+                        <button
+                            type="button"
+                            className="recuperar"
+                        >
+                            Recuperar contraseña
+                        </button>
+
+
+                        <button
+                            type="submit"
+                            className="login-ingresar"
+                        >
+                            Iniciar Sesión
+                        </button>
+
+                    </form>
+
+                </div>
+
+            </main>
+
+        </div>
     );
 }
+
 export default InicioSesion;

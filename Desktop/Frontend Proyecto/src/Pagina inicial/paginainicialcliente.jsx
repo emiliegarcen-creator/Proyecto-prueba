@@ -1,28 +1,25 @@
 import { useEffect, useState } from "react";
+import "./PaginaInicialCliente.css";
 
 function Ticket({ ticket }) {
 
     return (
-
         <article className="ticket">
 
             <h3>
-
                 {ticket.tipo === "mantenimiento"
                     ? "Ticket de mantenimiento"
                     : "Ticket de reparación"}
-
             </h3>
 
-
-            <p>
+            <p className="ticket-descripcion">
                 {ticket.descripcion}
             </p>
 
-       // Datos del ticket de reparación
-            {ticket.tipo === "reparacion" && (
+            {/* Datos del ticket de reparación */}
 
-                <div>
+            {ticket.tipo === "reparacion" && (
+                <div className="ticket-datos">
 
                     <p>
                         ID de computadora:{" "}
@@ -45,28 +42,26 @@ function Ticket({ ticket }) {
                     </p>
 
                 </div>
-
             )}
-            // Datos del ticket de mantenimiento
-            {ticket.tipo === "mantenimiento" && (
 
-                <p>
+            {/* Datos del ticket de mantenimiento */}
+
+            {ticket.tipo === "mantenimiento" && (
+                <p className="ticket-lugar">
                     Lugar:{" "}
                     {ticket.lugar}
                 </p>
-
             )}
 
-
-            <p>
+            <p className="ticket-estado">
                 Estado:{" "}
                 {ticket.estado}
             </p>
 
         </article>
-
     );
 }
+
 
 function PaginaInicialCliente({
     usuario,
@@ -79,22 +74,15 @@ function PaginaInicialCliente({
 
     useEffect(() => {
 
-        console.log(
-            "Página principal cargada"
-        );
-
-        console.log(
-            "Tickets actuales:",
-            tickets
-        );
+        console.log("Página principal cargada");
+        console.log("Tickets actuales:", tickets);
 
     }, [tickets]);
 
+
     const mostrarMenuTickets = () => {
 
-        setMostrarOpciones(
-            !mostrarOpciones
-        );
+        setMostrarOpciones(!mostrarOpciones);
 
     };
 
@@ -102,38 +90,56 @@ function PaginaInicialCliente({
     return (
 
         <div className="pagina-principal">
-            <header>
+
+            {/* =========================
+                BARRA SUPERIOR
+            ========================= */}
+
+            <header className="pagina-header">
 
                 <button
                     type="button"
+                    className="usuario-boton"
                     onClick={() =>
                         cambiarPagina("perfil")
                     }
                 >
 
-                    {usuario}
+                    <span>
+                        {usuario}
+                    </span>
 
-                    {" "}
-
-                    Personaemoji
+                    <span className="usuario-icono">
+                        ♙
+                    </span>
 
                 </button>
 
             </header>
 
-            <main>
+
+            {/* =========================
+                CONTENIDO
+            ========================= */}
+
+            <main className="pagina-contenido">
 
                 <h1>
                     Tus Tickets
                 </h1>
 
-                <section>
+
+                <section className="tickets-lista">
 
                     {tickets.length === 0 ? (
 
-                        <p>
-                            No tienes tickets creados.
-                        </p>
+                        <div className="sin-tickets">
+
+                            <p>
+                                No tienes tickets creados.
+                            </p>
+
+                        </div>
 
                     ) : (
 
@@ -151,18 +157,26 @@ function PaginaInicialCliente({
                 </section>
 
             </main>
-            <div>
+
+
+            {/* =========================
+                BOTÓN +
+            ========================= */}
+
+            <div className="crear-ticket-menu">
 
                 <button
                     type="button"
+                    className="boton-mas"
                     onClick={mostrarMenuTickets}
                 >
                     +
                 </button>
 
+
                 {mostrarOpciones && (
 
-                    <div>
+                    <div className="opciones-tickets">
 
                         <button
                             type="button"
@@ -201,9 +215,9 @@ function PaginaInicialCliente({
 
             </div>
 
-
         </div>
 
     );
 }
+
 export default PaginaInicialCliente;
