@@ -1,117 +1,211 @@
-import { useState } from "react";
 import './iniciodesesion.css';
+import { useState } from "react";
 
-export function InicioSesion({
-    setUsuario,
-    setEmail,
-    setRol,
+
+
+
+function InicioSesion({
+    iniciarSesion,
     cambiarPagina
 }) {
-    
-    const [nombreUsuario, setNombreUsuario] = useState("");
-    const [password, setPassword] = useState("");
 
+
+    const [nombreUsuario, setNombreUsuario] =
+        useState("");
+
+    const [password, setPassword] =
+        useState("");
 
     const handleSubmit = (e) => {
 
         e.preventDefault();
 
-        console.log("BOTÓN INICIAR SESIÓN PRESIONADO");
+        console.log(
+
+            "BOTÓN INICIAR SESIÓN PRESIONADO"
+
+        );
+
+
 
 
         // Validar campos
+
+
         if (
+
             nombreUsuario === "" ||
+
             password === ""
+
         ) {
 
-            alert("Todos los campos son obligatorios.");
+
+            alert(
+
+                "Todos los campos son obligatorios."
+
+            );
+
 
             return;
+
+
         }
 
 
-        // Guardar usuario
-        setUsuario(nombreUsuario);
-
-        setEmail(nombreUsuario + "@gmail.com");
-
-        setRol("Cliente");
 
 
-        console.log("LOGIN CORRECTO");
-
-        console.log("AHORA VOY A INICIO");
+        // Iniciar sesión
 
 
-        // Ir a la página principal
-        cambiarPagina("inicio");
+        iniciarSesion(
+
+            nombreUsuario,
+
+            password
+
+        );
+
 
     };
 
 
+
+
     return (
+
 
         <section>
 
+
             <h1>
+
+
                 Login
+
+
             </h1>
+
+
 
 
             <form onSubmit={handleSubmit}>
 
+
                 <input
+
                     type="text"
+
                     placeholder="Nombre de usuario"
+
                     value={nombreUsuario}
+
                     onChange={(e) =>
-                        setNombreUsuario(e.target.value)
+
+                        setNombreUsuario(
+
+                            e.target.value
+
+                        )
                     }
+
                 />
 
-
-                <br />
                 <br />
 
+
+                <br />
 
                 <input
+
+
                     type="password"
+
+
                     placeholder="Password"
+
+
                     value={password}
+
+
                     onChange={(e) =>
-                        setPassword(e.target.value)
+
+
+                        setPassword(
+
+
+                            e.target.value
+
+
+                        )
+
+
                     }
+
+
                 />
 
-
-                <br />
                 <br />
 
 
-                <button type="submit">
+                <br />
+
+
+                <button class="botones" type="submit">
+
                     Iniciar sesión
+
                 </button>
 
+
             </form>
+
+
 
 
             <br />
 
 
-            <button
+
+
+            <button class="boton-crear-cuenta"
                 type="button"
+
                 onClick={() => {
-                    console.log("BOTÓN CREAR CUENTA");
+
+
+                    console.log(
+
+
+                        "BOTÓN CREAR CUENTA"
+
+
+                    );
+
 
                     cambiarPagina("registro");
+
+
                 }}
+
+
             >
+
+
                 Crear una cuenta
+
+
             </button>
+
 
         </section>
 
+
     );
+
+
 }
+
+
 export default InicioSesion;

@@ -1,151 +1,308 @@
 import { useState } from "react";
 import './TicketMantenimiento.css';
 
+
 function TicketMantenimiento({
-    agregarTicket,
-    cambiarPagina
+agregarTicket,
+
+cambiarPagina
+
+
 }) {
 
-    const [descripcion, setDescripcion] = useState("");
-    const [lugar, setLugar] = useState("");
+
+const [descripcion, setDescripcion] = useState("");
+const [lugar, setLugar] = useState("");
+const [imagen, setImagen] = useState(null);
 
 
-    const enviarTicket = (e) => {
+// Adjuntar imagen
 
-        e.preventDefault();
-        // Validaciones
+
+const manejarCambio = (e) => {
+    const archivo = e.target.files[0];
+
+
+    if (archivo) {
+
+        // Validar formato de imagen
 
         if (
-            !descripcion ||
-            !lugar
-        ) {
 
+            !archivo.type.startsWith("image/")
+
+        ) {
             alert(
-                "Todos los campos son obligatorios."
+
+
+                "El formato no es el adecuado y el sistema pide que ingrese un formato válido."
+
             );
 
-            // Permanece en el formulario
-
             return;
+
         }
 
-        const nuevoTicket = {
+        setImagen(
 
-            id: Date.now(),
-            tipo: "mantenimiento",
-            descripcion: descripcion,
-            lugar: lugar,
-            estado: "Pendiente"
 
-        };
+            URL.createObjectURL(archivo)
 
-        // Registrar ticket
-
-        agregarTicket(
-            nuevoTicket
         );
-        // Limpiar formulario
+    }
+};
 
-        setDescripcion("");
-        setLugar("");
 
-        // Volver a página principal
+const enviarTicket = (e) => {
 
-        cambiarPagina(
-            "inicio"
+
+    e.preventDefault();
+    // Validaciones
+
+    if (
+
+        !descripcion ||
+
+        !lugar
+
+    ) {
+
+
+        alert(
+            "Todos los campos son obligatorios."
         );
 
+
+
+
+        // Permanece en el formulario
+        return;
+    }
+
+    const nuevoTicket = {
+
+
+        id: Date.now(),
+
+
+        tipo: "mantenimiento",
+
+        descripcion: descripcion,
+
+        lugar: lugar,
+
+        imagen: imagen,
+
+        estado: "Pendiente"
     };
 
 
-    return (
-
-        <div className="ticket-mantenimiento">
-
-            <h1>
-                Ticket de mantenimiento
-            </h1>
 
 
-            <form
-                onSubmit={enviarTicket}
-            >
+    // Registrar ticket
 
-                <div>
+    agregarTicket(
+        nuevoTicket
+    );
 
-                    <label>
-                        Descripción del problema
-                    </label>
 
-                    <br />
 
-                    <textarea
 
-                        value={descripcion}
+    // Limpiar formulario
 
-                        onChange={(e) =>
-                            setDescripcion(
-                                e.target.value
-                            )
-                        }
 
-                        placeholder="Describa el problema de mantenimiento"
+    setDescripcion("");
+    setLugar("");
+    setImagen(null);
 
+
+
+
+    // Volver a página principal
+
+
+    cambiarPagina(
+
+        "inicio"
+
+    );
+
+
+};
+
+
+
+
+return (
+
+    <div className="ticket-mantenimiento">
+
+        <h1>
+            Ticket de mantenimiento
+        </h1>
+
+
+
+
+        <form
+            onSubmit={enviarTicket}
+
+        >
+
+
+
+
+            {/* Adjuntar archivo */}
+
+
+            <div>
+
+                <label>
+                    Adjuntar imagen
+                </label>
+
+                <br />
+
+                <input
+                    type="file"
+                    accept="image/*"
+                    onChange={manejarCambio}
+                />
+
+                {/* Vista previa de la imagen */}
+
+
+                {imagen && (
+                    <img
+                        src={imagen}
+                        alt="Vista previa"
                     />
+                )}
 
-                </div>
+
+            </div>
+
+
+            <br />
+
+
+            <div>
+
+                <label>
+                    Descripción del problema
+                </label>
 
 
                 <br />
 
 
-                <div>
+                <textarea
+                    value={descripcion}
 
-                    <label>
-                        ¿En qué lugar del instituto está pasando?
-                    </label>
+                    onChange={(e) =>
 
-                    <br />
-
-                    <input
-
-                        type="text"
-
-                        value={lugar}
-
-                        onChange={(e) =>
-                            setLugar(
-                                e.target.value
-                            )
-                        }
-
-                        placeholder="Ej: Salón, Laboratorio, etc"
-
-                    />
-
-                </div>
-
-
-                <br />
-                
-                <button type="submit">
-                    Subir
-                </button>
-
-                <button
-                    type="button"
-
-                    onClick={() =>
-                        cambiarPagina(
-                            "inicio"
+                        setDescripcion(
+                            e.target.value
                         )
                     }
-                >
-                    Cancelar
-                </button>
-            </form>
-        </div>
-    );
+
+                    placeholder="Describa el problema de mantenimiento"
+
+                />
+
+            </div>
+
+
+
+
+            <br />
+
+
+            <div>
+                <label>
+
+                    ¿En qué lugar del instituto está pasando?
+
+                </label>
+
+
+                <br />
+
+                <input
+
+                    type="text"
+
+                    value={lugar}
+
+                    onChange={(e) =>
+
+                        setLugar(
+
+
+                            e.target.value
+
+                        )
+                    }
+
+                    placeholder="Ej: Salón, Laboratorio, etc."
+
+                />
+
+            </div>
+
+
+            <br />
+
+
+            <button id="boton-subir" type="submit">
+
+                Subir
+
+            </button>
+
+
+
+
+            <button id="boton-cancelar"
+                type="button"
+
+
+                onClick={() =>
+
+
+                    cambiarPagina(
+
+
+                        "inicio"
+
+
+                    )
+
+
+                }
+
+
+            >
+
+
+                Cancelar
+
+
+            </button>
+
+
+        </form>
+
+
+    </div>
+
+
+);
+
+
+
+
 }
+
 
 export default TicketMantenimiento;

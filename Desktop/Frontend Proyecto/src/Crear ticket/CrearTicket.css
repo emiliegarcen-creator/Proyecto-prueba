@@ -63,4 +63,24 @@ input {
   background-color: #e4e1e1;
 }
 
+select{
+    cursor: pointer;
+    height: 23px;
+    width: 110%;
+    background-color: #e4e1e1;
+    border: 2px solid #000000;
+    border-radius: 12px;
+    color: #333;
+}
+
+textarea{
+    background-color: #e4e1e1;
+    border: 2px solid #000000;
+    border-radius: 12px;
+    color: #333;
+   width: 331px; 
+   height: 66px;
+    align-self: center;
+}
+
 
