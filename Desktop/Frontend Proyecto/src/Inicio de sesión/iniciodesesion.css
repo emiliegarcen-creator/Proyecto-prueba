@@ -1,0 +1,77 @@
+*{
+    align-self: center;
+    align-content: center;
+}
+
+h2{
+    color: #333;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    margin: 0;
+    background-color: #ffffff;
+    font-family: Arial, sans-serif;
+}
+section {
+    width: 100%;
+    max-width: 400px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+/* lleVARLO A JAVASXRIPT*/
+.boton-crear-cuenta {
+    align-self: flex-end;
+    margin-bottom: 15px;
+    background-color: #e4e1e1;
+    border: 2px solid #000000;
+    border-radius: 12px;
+    padding: 8px 16px;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+/*rounded-square*/
+form {
+    background-color: #ffffff;
+    border: 3px solid #000000;
+    border-radius: 20px;
+    box-shadow: 0px 0px 0px 12px #C6B1D7; /*borde exterior dsel form*/
+    padding: 30px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+
+/* cajitas de texto*/
+input {
+    color:#000000;
+    width: 90%;
+    border: 2px solid #000000;
+    border-radius: 12px;
+    padding: 10px 12px;
+    background-color: #ffffff;
+    margin-bottom: 15px;
+    box-sizing: border-box;
+}
+
+/* inicio de sesion*/
+form button {
+    width: 90%;
+    height: 40px;
+    background-color: #adbbdf;
+    border: 2px solid #000000;
+    border-radius: 12px;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    margin-top: 10px;
+    cursor: pointer; /*para que el mouse se vea como manito cuando lo pase por encima del boton*/
+}
