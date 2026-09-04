@@ -1,236 +1,240 @@
+/* Evita que otros estilos cambien las medidas */
 .mantenimiento-pantalla {
     width: 100%;
     min-height: 100vh;
-
     background-color: white;
-
-    position: relative;
-
     font-family: Arial, sans-serif;
+    position: relative;
 }
 
-/* =========================
-   BARRA SUPERIOR
-   ========================= */
+/* BARRA SUPERIOR */
 
 .mantenimiento-header {
     width: 100%;
-    height: 27px;
-
+    height: 50px;
     background-color: #8dbbdd;
 
     display: flex;
-    justify-content: flex-end;
     align-items: center;
+    justify-content: flex-end;
 
-    padding-right: 7px;
-
-    color: white;
-
-    font-size: 7px;
-
-    gap: 3px;
+    gap: 10px;
+    padding: 0 20px;
 }
 
-.mantenimiento-header button {
-    width: 14px;
-    height: 14px;
+.mantenimiento-nombre {
+    color: white;
+    font-size: 18px;
+}
 
+.mantenimiento-perfil {
+    width: 34px;
+    height: 34px;
+
+    border: 2px solid #222;
     border-radius: 50%;
-
-    border: 1px solid #555;
 
     background-color: white;
 
-    font-size: 9px;
-
-    padding: 0;
-
+    font-size: 18px;
     cursor: pointer;
 }
 
-/* =========================
-   BOTÓN VOLVER
-   ========================= */
+/* BOTÓN VOLVER */
 
 .mantenimiento-volver {
     position: absolute;
 
-    left: 6px;
-    bottom: 7px;
+    top: 70px;
+    left: 25px;
 
-    width: 13px;
-    height: 13px;
+    width: 38px;
+    height: 38px;
 
+    border: 1px solid #333;
     border-radius: 50%;
 
-    border: 1px solid #555;
+    background-color: #e7d7ec;
 
-    background-color: white;
-
-    font-size: 8px;
-
-    padding: 0;
-
+    font-size: 22px;
     cursor: pointer;
 }
 
-/* =========================
-   CONTENIDO
-   ========================= */
+/* CONTENIDO */
 
 .mantenimiento-contenido {
+    width: 100%;
+    min-height: calc(100vh - 50px);
+
     display: flex;
-
     justify-content: center;
+    align-items: flex-start;
 
-    padding-top: 43px;
+    padding: 70px 20px 50px;
 }
 
-/* =========================
-   CAJA LILA
-   ========================= */
+/* CAJA EXTERIOR */
 
 .mantenimiento-caja {
-    width: 162px;
+    width: 600px;
+    max-width: 100%;
 
     background-color: #c5a9d8;
 
-    border-radius: 9px;
+    border-radius: 16px;
 
-    padding: 7px;
+    padding: 12px;
 }
 
-/* =========================
-   FORMULARIO BLANCO
-   ========================= */
+/* FORMULARIO BLANCO */
 
-.mantenimiento-caja form {
+.mantenimiento-formulario {
     width: 100%;
 
     background-color: white;
 
-    border: 1px solid #333;
+    border: 2px solid #222;
+    border-radius: 12px;
 
-    border-radius: 7px;
-
-    padding: 7px;
+    padding: 24px;
 
     display: flex;
-
     flex-direction: column;
 
-    gap: 5px;
+    gap: 18px;
 }
 
-/* =========================
-   CAMPOS
-   ========================= */
+/* TÍTULO */
+
+.mantenimiento-titulo {
+    margin: 0;
+
+    font-size: 24px;
+    font-weight: normal;
+    line-height: 1.2;
+
+    color: #111;
+}
+
+/* CAMPOS */
 
 .mantenimiento-campo {
-    position: relative;
+    width: 100%;
 
     display: flex;
-
     flex-direction: column;
+
+    gap: 6px;
 }
 
 .mantenimiento-campo label {
-    font-size: 6px;
-
+    font-size: 14px;
     color: #222;
+}
 
-    margin-bottom: 2px;
+.mantenimiento-campo textarea {
+    width: 100%;
+    height: 140px;
+
+    border: 1px solid #999;
+    border-radius: 8px;
+
+    padding: 10px;
+
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    line-height: 1.3;
+
+    resize: vertical;
 }
 
 .mantenimiento-campo input {
     width: 100%;
-    height: 16px;
+    height: 40px;
 
-    border: 1px solid #aaa;
+    border: 1px solid #999;
+    border-radius: 8px;
 
-    border-radius: 5px;
+    padding: 8px 10px;
 
-    padding: 2px 5px;
-
-    font-size: 7px;
-
-    outline: none;
+    font-size: 14px;
 }
 
-/* =========================
-   DESCRIPCIÓN
-   ========================= */
-
-.mantenimiento-campo textarea {
-    width: 100%;
-    height: 32px;
-
-    resize: none;
-
-    border: 1px solid #aaa;
-
-    border-radius: 5px;
-
-    padding: 3px 5px;
-
-    font-family: Arial, sans-serif;
-
-    font-size: 7px;
-
+.mantenimiento-campo textarea:focus,
+.mantenimiento-campo input:focus {
     outline: none;
-}
-
-.mantenimiento-campo textarea::placeholder,
-.mantenimiento-campo input::placeholder {
-    color: #555;
+    border-color: #8da3d5;
 }
 
 .mantenimiento-campo small {
-    position: absolute;
-
-    right: 4px;
-    bottom: 4px;
-
-    font-size: 4px;
-
-    color: #555;
+    font-size: 11px;
+    color: #777;
 }
 
-/* =========================
-   BOTONES
-   ========================= */
+/* BOTONES */
 
 .mantenimiento-botones {
-    display: grid;
+    display: flex;
+    justify-content: center;
+    gap: 12px;
 
-    grid-template-columns: 1fr 1fr;
-
-    gap: 5px;
-
-    margin-top: 1px;
+    margin-top: 2px;
 }
 
-.mantenimiento-botones button {
-    height: 15px;
+.mantenimiento-subir,
+.mantenimiento-cancelar {
+    width: 125px;
+    height: 36px;
 
-    border: none;
+    border-radius: 18px;
 
-    border-radius: 8px;
-
-    font-size: 7px;
+    font-size: 13px;
 
     cursor: pointer;
 }
 
 .mantenimiento-subir {
+    border: none;
     background-color: #a9b9df;
-
     color: white;
 }
 
 .mantenimiento-cancelar {
-    background-color: #eb7378;
+    border: 1px solid #333;
+    background-color: #ed747c;
+    color: #222;
+}
 
-    color: white;
+/* CELULAR */
+
+@media (max-width: 600px) {
+
+    .mantenimiento-contenido {
+        padding: 55px 12px 40px;
+    }
+
+    .mantenimiento-caja {
+        width: 100%;
+        max-width: 100%;
+    }
+
+    .mantenimiento-formulario {
+        padding: 18px;
+    }
+
+    .mantenimiento-titulo {
+        font-size: 21px;
+    }
+
+    .mantenimiento-botones {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .mantenimiento-subir,
+    .mantenimiento-cancelar {
+        width: 100%;
+        max-width: 220px;
+    }
+
 }

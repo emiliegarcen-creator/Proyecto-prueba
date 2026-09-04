@@ -1,27 +1,17 @@
-/* =========================
-   PANTALLA LOGIN
-   ========================= */
+* {
+    box-sizing: border-box;
+}
 
 .login-pantalla {
     width: 100%;
     min-height: 100vh;
-
     background-color: white;
-
     font-family: Arial, sans-serif;
-
-    position: relative;
 }
-
-
-/* =========================
-   BARRA SUPERIOR
-   ========================= */
 
 .login-header {
     width: 100%;
     height: 50px;
-
     background-color: #8dbbdd;
 
     display: flex;
@@ -31,15 +21,11 @@
     padding: 0 20px;
 
     color: #222;
-
     font-size: 18px;
-
-    box-sizing: border-box;
 }
 
 .login-header button {
     border: none;
-
     border-radius: 6px;
 
     background-color: #e7d7ec;
@@ -49,60 +35,36 @@
     padding: 6px 18px;
 
     font-size: 11px;
-
     cursor: pointer;
 }
 
-
-/* =========================
-   CONTENIDO
-   ========================= */
-
 .login-contenido {
     width: 100%;
-
     min-height: calc(100vh - 50px);
 
     display: flex;
-
     flex-direction: column;
-
     align-items: center;
 
     padding-top: 35px;
-
-    box-sizing: border-box;
 }
-
-
-/* =========================
-   ICONO
-   ========================= */
 
 .login-icono {
     width: 50px;
     height: 50px;
 
     border: 1px solid #777;
-
     border-radius: 50%;
 
     display: flex;
-
     align-items: center;
     justify-content: center;
 
     font-size: 28px;
-
     color: #555;
 
     margin-bottom: 15px;
 }
-
-
-/* =========================
-   CAJA LILA
-   ========================= */
 
 .login-caja {
     width: 320px;
@@ -112,14 +74,7 @@
     border-radius: 14px;
 
     padding: 10px;
-
-    box-sizing: border-box;
 }
-
-
-/* =========================
-   FORMULARIO BLANCO
-   ========================= */
 
 .login-caja form {
     width: 100%;
@@ -127,36 +82,24 @@
     background-color: white;
 
     border: 1px solid #333;
-
     border-radius: 10px;
 
     padding: 14px;
 
-    box-sizing: border-box;
-
     display: flex;
-
     flex-direction: column;
-
     gap: 10px;
 }
-
-
-/* =========================
-   CAMPOS
-   ========================= */
 
 .login-campo {
     width: 100%;
 
     display: flex;
-
     flex-direction: column;
 }
 
 .login-campo label {
     font-size: 10px;
-
     color: #222;
 
     margin-bottom: 4px;
@@ -164,19 +107,14 @@
 
 .login-campo input {
     width: 100%;
-
     height: 32px;
 
     border: 1px solid #aaa;
-
     border-radius: 6px;
 
     padding: 5px 8px;
 
     font-size: 12px;
-
-    box-sizing: border-box;
-
     outline: none;
 }
 
@@ -184,39 +122,55 @@
     border-color: #8da3d5;
 }
 
+.login-password-contenedor {
+    width: 100%;
 
-/* =========================
-   RECUPERAR CONTRASEÑA
-   ========================= */
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.login-password-contenedor input {
+    flex: 1;
+    min-width: 0;
+}
+
+.login-boton-mostrar {
+    height: 32px;
+
+    border: none;
+    border-radius: 6px;
+
+    background-color: #e7d7ec;
+
+    color: #333;
+
+    padding: 0 9px;
+
+    font-size: 10px;
+    cursor: pointer;
+
+    white-space: nowrap;
+}
 
 .recuperar {
     border: none;
-
     background: none;
 
     color: #555;
 
     font-size: 8px;
-
     text-align: left;
 
     padding: 0;
-
     cursor: pointer;
 }
 
-
-/* =========================
-   BOTÓN INICIAR SESIÓN
-   ========================= */
-
 .login-ingresar {
     width: 100%;
-
     height: 32px;
 
     border: none;
-
     border-radius: 16px;
 
     background-color: #a9b9df;
@@ -224,23 +178,14 @@
     color: white;
 
     font-size: 11px;
-
     cursor: pointer;
-
-    margin-top: 2px;
 }
 
 .login-ingresar:hover {
     background-color: #96a9d5;
 }
 
-
-/* =========================
-   PANTALLAS MÁS PEQUEÑAS
-   ========================= */
-
 @media (max-width: 600px) {
-
     .login-caja {
         width: 85%;
         max-width: 320px;
@@ -249,5 +194,4 @@
     .login-header {
         padding: 0 10px;
     }
-
 }

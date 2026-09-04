@@ -2,6 +2,7 @@ import { useState } from "react";
 import "./ticketmantenimiento.css";
 
 function TicketMantenimiento({
+    usuario,
     agregarTicket,
     cambiarPagina
 }) {
@@ -11,42 +12,44 @@ function TicketMantenimiento({
     const enviarTicket = (e) => {
         e.preventDefault();
 
-        // Validaciones
-        if (!descripcion || !lugar) {
+        if (!descripcion.trim() || !lugar.trim()) {
             alert("Todos los campos son obligatorios.");
+            return;
+        }
+
+        if (descripcion.trim().length < 30) {
+            alert("La descripción debe tener al menos 30 caracteres.");
             return;
         }
 
         const nuevoTicket = {
             id: Date.now(),
             tipo: "mantenimiento",
-            descripcion: descripcion,
-            lugar: lugar,
+            descripcion: descripcion.trim(),
+            lugar: lugar.trim(),
             estado: "Pendiente"
         };
 
-        // Registrar ticket
         agregarTicket(nuevoTicket);
 
-        // Limpiar formulario
         setDescripcion("");
         setLugar("");
 
-        // Volver a página principal
         cambiarPagina("inicio");
     };
 
     return (
         <div className="mantenimiento-pantalla">
 
-            {/* Barra superior */}
-
             <header className="mantenimiento-header">
 
-                <span>Nombre</span>
+                <span className="mantenimiento-nombre">
+                    {usuario || "Nombre"}
+                </span>
 
                 <button
                     type="button"
+                    className="mantenimiento-perfil"
                     onClick={() => cambiarPagina("perfil")}
                 >
                     ♙
@@ -54,7 +57,6 @@ function TicketMantenimiento({
 
             </header>
 
-            {/* Botón volver */}
 
             <button
                 type="button"
@@ -64,45 +66,52 @@ function TicketMantenimiento({
                 ←
             </button>
 
-            {/* Formulario */}
 
             <main className="mantenimiento-contenido">
 
                 <div className="mantenimiento-caja">
 
-                    <form onSubmit={enviarTicket}>
+                    <form
+                        className="mantenimiento-formulario"
+                        onSubmit={enviarTicket}
+                    >
 
-                        {/* Descripción */}
+                        <h1 className="mantenimiento-titulo">
+                            Ticket de mantenimiento
+                        </h1>
+
 
                         <div className="mantenimiento-campo">
 
-                            <label>
+                            <label htmlFor="descripcion">
                                 Descripción
                             </label>
 
                             <textarea
+                                id="descripcion"
                                 value={descripcion}
                                 onChange={(e) =>
                                     setDescripcion(e.target.value)
                                 }
-                                placeholder="¿En qué lugar está pasando?"
+                                placeholder="Describa el problema de mantenimiento"
+                                maxLength={500}
                             />
 
                             <small>
-                                Min:30
+                                {descripcion.length}/500 · Mínimo 30 caracteres
                             </small>
 
                         </div>
 
-                        {/* Lugar */}
 
                         <div className="mantenimiento-campo">
 
-                            <label>
+                            <label htmlFor="lugar">
                                 Lugar
                             </label>
 
                             <input
+                                id="lugar"
                                 type="text"
                                 value={lugar}
                                 onChange={(e) =>
@@ -113,7 +122,6 @@ function TicketMantenimiento({
 
                         </div>
 
-                        {/* Botones */}
 
                         <div className="mantenimiento-botones">
 
@@ -127,9 +135,7 @@ function TicketMantenimiento({
                             <button
                                 type="button"
                                 className="mantenimiento-cancelar"
-                                onClick={() =>
-                                    cambiarPagina("inicio")
-                                }
+                                onClick={() => cambiarPagina("inicio")}
                             >
                                 Cancelar
                             </button>

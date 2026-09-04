@@ -1,62 +1,77 @@
 import { useEffect, useState } from "react";
-import "./PaginaInicialCliente.css";
+import "./paginainicialcliente.css";
 
 function Ticket({ ticket }) {
+    const esMantenimiento = ticket.tipo === "mantenimiento";
 
     return (
-        <article className="ticket">
+        <article className={`ticket-card ${ticket.estado?.toLowerCase()}`}>
 
-            <h3>
-                {ticket.tipo === "mantenimiento"
-                    ? "Ticket de mantenimiento"
-                    : "Ticket de reparación"}
-            </h3>
+            <div className="ticket-card-contenido">
 
-            <p className="ticket-descripcion">
-                {ticket.descripcion}
-            </p>
+                <h2>
+                    {esMantenimiento
+                        ? "Ticket de mantenimiento"
+                        : "Ticket de reparación"}
+                </h2>
 
-            {/* Datos del ticket de reparación */}
-
-            {ticket.tipo === "reparacion" && (
-                <div className="ticket-datos">
-
-                    <p>
-                        ID de computadora:{" "}
-                        {ticket.idComputadora}
-                    </p>
-
-                    <p>
-                        Modelo:{" "}
-                        {ticket.modelo}
-                    </p>
-
-                    <p>
-                        Cargador:{" "}
-                        {ticket.cargador}
-                    </p>
-
-                    <p>
-                        Locker:{" "}
-                        {ticket.locker}
-                    </p>
-
-                </div>
-            )}
-
-            {/* Datos del ticket de mantenimiento */}
-
-            {ticket.tipo === "mantenimiento" && (
-                <p className="ticket-lugar">
-                    Lugar:{" "}
-                    {ticket.lugar}
+                <p className="ticket-descripcion">
+                    {ticket.descripcion}
                 </p>
-            )}
 
-            <p className="ticket-estado">
-                Estado:{" "}
-                {ticket.estado}
-            </p>
+                {ticket.tipo === "reparacion" && (
+                    <div className="ticket-detalles">
+                        <p>
+                            <strong>ID de computadora:</strong>{" "}
+                            {ticket.idComputadora}
+                        </p>
+
+                        <p>
+                            <strong>Modelo:</strong>{" "}
+                            {ticket.modelo}
+                        </p>
+
+                        <p>
+                            <strong>Cargador:</strong>{" "}
+                            {ticket.cargador}
+                        </p>
+
+                        <p>
+                            <strong>Locker:</strong>{" "}
+                            {ticket.locker}
+                        </p>
+                    </div>
+                )}
+
+                {ticket.tipo === "mantenimiento" && (
+                    <p className="ticket-detalles">
+                        <strong>Lugar:</strong>{" "}
+                        {ticket.lugar}
+                    </p>
+                )}
+
+                <div className="ticket-estado">
+                    {ticket.estado === "Pendiente"
+                        ? "Tu ticket está en espera"
+                        : ticket.estado === "Solucionado"
+                            ? "Tu ticket ya se ha solucionado"
+                            : `Estado: ${ticket.estado}`}
+                </div>
+
+            </div>
+
+
+            {ticket.estado === "Pendiente" && (
+                <button
+                    type="button"
+                    className="ticket-cancelar"
+                    onClick={() =>
+                        alert("La cancelación de tickets todavía no está disponible.")
+                    }
+                >
+                    Cancelar
+                </button>
+            )}
 
         </article>
     );
@@ -68,155 +83,118 @@ function PaginaInicialCliente({
     tickets,
     cambiarPagina
 }) {
-
-    const [mostrarOpciones, setMostrarOpciones] =
-        useState(false);
+    const [mostrarOpciones, setMostrarOpciones] = useState(false);
 
     useEffect(() => {
-
         console.log("Página principal cargada");
         console.log("Tickets actuales:", tickets);
-
     }, [tickets]);
 
-
     const mostrarMenuTickets = () => {
-
         setMostrarOpciones(!mostrarOpciones);
-
     };
 
-
     return (
-
         <div className="pagina-principal">
 
-            {/* =========================
-                BARRA SUPERIOR
-            ========================= */}
+            <header className="principal-header">
 
-            <header className="pagina-header">
+                <div className="principal-nombre">
+                    {usuario || "Nombre"}
+                </div>
 
                 <button
                     type="button"
-                    className="usuario-boton"
-                    onClick={() =>
-                        cambiarPagina("perfil")
-                    }
+                    className="principal-perfil"
+                    onClick={() => cambiarPagina("perfil")}
+                    aria-label="Abrir perfil"
                 >
-
-                    <span>
-                        {usuario}
-                    </span>
-
-                    <span className="usuario-icono">
-                        ♙
-                    </span>
-
+                    <span className="principal-perfil-cabeza"></span>
+                    <span className="principal-perfil-cuerpo"></span>
                 </button>
 
             </header>
 
 
-            {/* =========================
-                CONTENIDO
-            ========================= */}
+            <aside className="principal-sidebar">
 
-            <main className="pagina-contenido">
+                <button
+                    type="button"
+                    className="sidebar-calendario"
+                    onClick={() =>
+                        alert("El calendario todavía no está disponible.")
+                    }
+                    aria-label="Calendario"
+                >
+                    <span></span>
+                </button>
 
-                <h1>
-                    Tus Tickets
-                </h1>
+                <div className="sidebar-crear-contenedor">
 
+                    {mostrarOpciones && (
+                        <div className="menu-tickets">
+
+                            <button
+                                type="button"
+                                onClick={() => {
+                                    setMostrarOpciones(false);
+                                    cambiarPagina("crear-ticket");
+                                }}
+                            >
+                                Reparación
+                            </button>
+
+                            <button
+                                type="button"
+                                onClick={() => {
+                                    setMostrarOpciones(false);
+                                    cambiarPagina("mantenimiento");
+                                }}
+                            >
+                                Mantenimiento
+                            </button>
+
+                        </div>
+                    )}
+
+                    <button
+                        type="button"
+                        className="sidebar-crear"
+                        onClick={mostrarMenuTickets}
+                        aria-label="Crear ticket"
+                    >
+                        +
+                    </button>
+
+                </div>
+
+            </aside>
+
+
+            <main className="principal-main">
+
+                <h1>Tus Tickets</h1>
 
                 <section className="tickets-lista">
 
                     {tickets.length === 0 ? (
-
                         <div className="sin-tickets">
-
-                            <p>
-                                No tienes tickets creados.
-                            </p>
-
+                            No tienes tickets creados.
                         </div>
-
                     ) : (
-
                         tickets.map((ticket) => (
-
                             <Ticket
                                 key={ticket.id}
                                 ticket={ticket}
                             />
-
                         ))
-
                     )}
 
                 </section>
 
             </main>
 
-
-            {/* =========================
-                BOTÓN +
-            ========================= */}
-
-            <div className="crear-ticket-menu">
-
-                <button
-                    type="button"
-                    className="boton-mas"
-                    onClick={mostrarMenuTickets}
-                >
-                    +
-                </button>
-
-
-                {mostrarOpciones && (
-
-                    <div className="opciones-tickets">
-
-                        <button
-                            type="button"
-                            onClick={() => {
-
-                                setMostrarOpciones(false);
-
-                                cambiarPagina(
-                                    "crear-ticket"
-                                );
-
-                            }}
-                        >
-                            Crear ticket de reparación
-                        </button>
-
-
-                        <button
-                            type="button"
-                            onClick={() => {
-
-                                setMostrarOpciones(false);
-
-                                cambiarPagina(
-                                    "mantenimiento"
-                                );
-
-                            }}
-                        >
-                            Ticket de mantenimiento
-                        </button>
-
-                    </div>
-
-                )}
-
-            </div>
-
         </div>
-
     );
 }
 

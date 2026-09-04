@@ -2,7 +2,6 @@ import { useState } from "react";
 import "./Registro.css";
 
 function Registro({ cambiarPagina }) {
-
     const [nombre, setNombre] = useState("");
     const [email, setEmail] = useState("");
     const [cedula, setCedula] = useState("");
@@ -10,10 +9,13 @@ function Registro({ cambiarPagina }) {
     const [contraseña, setContraseña] = useState("");
     const [confirmarContraseña, setConfirmarContraseña] = useState("");
 
-    async function enviarFormulario(e) {
+    const [mostrarContraseña, setMostrarContraseña] = useState(false);
+    const [mostrarConfirmacion, setMostrarConfirmacion] = useState(false);
+    const [cargando, setCargando] = useState(false);
+
+    const enviarFormulario = async (e) => {
         e.preventDefault();
 
-        // Validaciones
         if (
             !nombre ||
             !email ||
@@ -31,7 +33,37 @@ function Registro({ cambiarPagina }) {
             return;
         }
 
+        if (!/^\d+$/.test(cedula)) {
+            alert("La cédula debe contener solamente números.");
+            return;
+        }
+
+        setCargando(true);
+
         try {
+            // Obtener los usuarios ya registrados
+            const usuariosResponse = await fetch(
+                "http://localhost:3000/usuarios"
+            );
+
+            if (!usuariosResponse.ok) {
+                throw new Error("No se pudieron obtener los usuarios.");
+            }
+
+            const usuarios = await usuariosResponse.json();
+
+            // Comprobar si la cédula ya existe
+            const cedulaExiste = usuarios.some(
+                (usuario) =>
+                    String(usuario.cedula).trim() === cedula.trim()
+            );
+
+            if (cedulaExiste) {
+                alert("Esa cédula ya está registrada.");
+                return;
+            }
+
+            // Guardar el nuevo usuario
             const response = await fetch(
                 "http://localhost:3000/usuarios",
                 {
@@ -40,27 +72,29 @@ function Registro({ cambiarPagina }) {
                         "Content-Type": "application/json",
                     },
                     body: JSON.stringify({
-                        nombre,
-                        email,
-                        cedula,
+                        nombre: nombre.trim(),
+                        email: email.trim(),
+                        cedula: cedula.trim(),
                         rol,
                         contraseña,
-                        confirmarContraseña,
                     }),
                 }
             );
 
             if (!response.ok) {
-                throw new Error("Error al guardar el usuario.");
+                throw new Error("No se pudo guardar el usuario.");
             }
 
-            const data = await response.json();
+            const usuarioCreado = await response.json();
 
-            alert("Usuario registrado correctamente.");
+            console.log("Usuario registrado:", usuarioCreado);
 
-            console.log(data);
+            alert(
+                "Usuario registrado correctamente. " +
+                "Ahora podés iniciar sesión con tu cédula."
+            );
 
-            // Limpiar formulario
+            // Limpiar los campos
             setNombre("");
             setEmail("");
             setCedula("");
@@ -68,18 +102,24 @@ function Registro({ cambiarPagina }) {
             setContraseña("");
             setConfirmarContraseña("");
 
+            // Volver al Login
             cambiarPagina("login");
 
         } catch (error) {
-            console.error(error);
-            alert("No se pudo registrar el usuario.");
+            console.error("Error al registrar:", error);
+
+            alert(
+                "No se pudo registrar al usuario. " +
+                "Verificá que la API esté funcionando."
+            );
+
+        } finally {
+            setCargando(false);
         }
-    }
+    };
 
     return (
         <div className="registro-pantalla">
-
-            {/* Barra superior */}
 
             <header className="registro-header">
 
@@ -95,137 +135,197 @@ function Registro({ cambiarPagina }) {
             </header>
 
 
-            {/* Contenido */}
-
             <main className="registro-contenido">
 
                 <div className="registro-caja">
 
                     <form onSubmit={enviarFormulario}>
 
-                        {/* Nombre */}
-
                         <div className="registro-campo campo-completo">
 
-                            <label>
-                                Nombre Completo
+                            <label htmlFor="nombre">
+                                Nombre completo
                             </label>
 
                             <input
+                                id="nombre"
                                 type="text"
                                 value={nombre}
                                 onChange={(e) =>
                                     setNombre(e.target.value)
                                 }
+                                placeholder="Nombre completo"
                             />
 
                         </div>
 
 
-                        {/* Cédula */}
-
                         <div className="registro-campo">
 
-                            <label>
-                                Cédula de Identidad
+                            <label htmlFor="cedula">
+                                Cédula de identidad
                             </label>
 
                             <input
-                                type="number"
+                                id="cedula"
+                                type="text"
+                                inputMode="numeric"
                                 value={cedula}
-                                onChange={(e) =>
-                                    setCedula(e.target.value)
-                                }
+                                onChange={(e) => {
+                                    const valor = e.target.value;
+
+                                    if (/^\d*$/.test(valor)) {
+                                        setCedula(valor);
+                                    }
+                                }}
+                                placeholder="Ej: 12345678"
                             />
+
+                            <small>
+                                Tu cédula será tu nombre de usuario.
+                            </small>
 
                         </div>
 
 
-                        {/* Rol */}
-
                         <div className="registro-campo">
 
-                            <label>
+                            <label htmlFor="rol">
                                 Rol
                             </label>
 
-                            <input
-                                type="text"
+                            <select
+                                id="rol"
                                 value={rol}
                                 onChange={(e) =>
                                     setRol(e.target.value)
                                 }
-                            />
+                            >
+
+                                <option value="">
+                                    Seleccione
+                                </option>
+
+                                <option value="Cliente">
+                                    Cliente
+                                </option>
+
+                            </select>
 
                         </div>
 
 
-                        {/* Mail */}
-
                         <div className="registro-campo campo-completo">
 
-                            <label>
+                            <label htmlFor="email">
                                 Mail
                             </label>
 
                             <input
+                                id="email"
                                 type="email"
                                 value={email}
                                 onChange={(e) =>
                                     setEmail(e.target.value)
                                 }
+                                placeholder="ejemplo@gmail.com"
                             />
 
                         </div>
 
 
-                        {/* Contraseña */}
-
                         <div className="registro-campo campo-completo">
 
-                            <label>
+                            <label htmlFor="contraseña">
                                 Contraseña
                             </label>
 
-                            <input
-                                type="password"
-                                value={contraseña}
-                                onChange={(e) =>
-                                    setContraseña(e.target.value)
-                                }
-                            />
+                            <div className="contraseña-contenedor">
+
+                                <input
+                                    id="contraseña"
+                                    type={
+                                        mostrarContraseña
+                                            ? "text"
+                                            : "password"
+                                    }
+                                    value={contraseña}
+                                    onChange={(e) =>
+                                        setContraseña(e.target.value)
+                                    }
+                                    placeholder="Contraseña"
+                                />
+
+                                <button
+                                    type="button"
+                                    className="boton-mostrar"
+                                    onClick={() =>
+                                        setMostrarContraseña(
+                                            !mostrarContraseña
+                                        )
+                                    }
+                                >
+                                    {mostrarContraseña
+                                        ? "Ocultar"
+                                        : "Mostrar"}
+                                </button>
+
+                            </div>
 
                         </div>
 
-
-                        {/* Confirmar contraseña */}
 
                         <div className="registro-campo campo-completo">
 
-                            <label>
-                                Repetir Contraseña
+                            <label htmlFor="confirmarContraseña">
+                                Repetir contraseña
                             </label>
 
-                            <input
-                                type="password"
-                                value={confirmarContraseña}
-                                onChange={(e) =>
-                                    setConfirmarContraseña(
-                                        e.target.value
-                                    )
-                                }
-                            />
+                            <div className="contraseña-contenedor">
+
+                                <input
+                                    id="confirmarContraseña"
+                                    type={
+                                        mostrarConfirmacion
+                                            ? "text"
+                                            : "password"
+                                    }
+                                    value={confirmarContraseña}
+                                    onChange={(e) =>
+                                        setConfirmarContraseña(
+                                            e.target.value
+                                        )
+                                    }
+                                    placeholder="Repetir contraseña"
+                                />
+
+                                <button
+                                    type="button"
+                                    className="boton-mostrar"
+                                    onClick={() =>
+                                        setMostrarConfirmacion(
+                                            !mostrarConfirmacion
+                                        )
+                                    }
+                                >
+                                    {mostrarConfirmacion
+                                        ? "Ocultar"
+                                        : "Mostrar"}
+                                </button>
+
+                            </div>
 
                         </div>
 
-
-                        {/* Botón */}
 
                         <button
                             type="submit"
                             className="boton-registrarse"
+                            disabled={cargando}
                         >
-                            Registrarse
+                            {cargando
+                                ? "Registrando..."
+                                : "Registrarse"}
                         </button>
 
                     </form>

@@ -1,24 +1,18 @@
-/* =========================
-   PÁGINA PRINCIPAL
-   ========================= */
+* {
+    box-sizing: border-box;
+}
 
 .pagina-principal {
     width: 100%;
     min-height: 100vh;
-
     background-color: white;
-
     font-family: Arial, sans-serif;
-
     position: relative;
 }
 
+/* ENCABEZADO */
 
-/* =========================
-   BARRA SUPERIOR
-   ========================= */
-
-.pagina-header {
+.principal-header {
     width: 100%;
     height: 50px;
 
@@ -29,310 +23,406 @@
     justify-content: flex-end;
 
     padding: 0 20px;
-
-    box-sizing: border-box;
-}
-
-
-/* =========================
-   USUARIO
-   ========================= */
-
-.usuario-boton {
-    display: flex;
-    align-items: center;
-
-    gap: 7px;
-
-    border: none;
-
-    background: transparent;
-
-    color: white;
-
-    font-size: 12px;
-
-    padding: 0;
-}
-
-.usuario-icono {
-    width: 30px;
-    height: 30px;
-
-    border-radius: 50%;
-
-    border: 1px solid #555;
-
-    background-color: white;
-
-    color: #555;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
-    font-size: 17px;
-}
-
-
-/* =========================
-   CONTENIDO
-   ========================= */
-
-.pagina-contenido {
-    width: 100%;
-
-    padding: 40px 30px 100px;
-
-    box-sizing: border-box;
-}
-
-
-/* =========================
-   TÍTULO
-   ========================= */
-
-.pagina-contenido h1 {
-    margin: 0 0 25px;
-
-    font-size: 28px;
-
-    font-weight: 500;
-
-    color: #222;
-
-    text-align: left;
-}
-
-
-/* =========================
-   LISTA DE TICKETS
-   ========================= */
-
-.tickets-lista {
-    width: 100%;
-
-    max-width: 800px;
-
-    margin: 0 auto;
-
-    display: flex;
-
-    flex-direction: column;
-
-    gap: 15px;
-}
-
-
-/* =========================
-   TICKET
-   ========================= */
-
-.ticket {
-    width: 100%;
-
-    background-color: #c5a9d8;
-
-    border-radius: 12px;
-
-    padding: 15px 18px;
-
-    box-sizing: border-box;
-
-    border: 1px solid #a98dbd;
-}
-
-
-/* TÍTULO DEL TICKET */
-
-.ticket h3 {
-    margin: 0 0 10px;
-
-    font-size: 17px;
-
-    color: #222;
-
-    font-weight: 600;
-}
-
-
-/* DESCRIPCIÓN */
-
-.ticket-descripcion {
-    margin: 0 0 10px;
-
-    font-size: 13px;
-
-    color: #333;
-
-    line-height: 1.4;
-}
-
-
-/* DATOS */
-
-.ticket-datos {
-    display: grid;
-
-    grid-template-columns: 1fr 1fr;
-
-    gap: 5px 20px;
-}
-
-.ticket-datos p,
-.ticket-lugar,
-.ticket-estado {
-    margin: 0;
-
-    font-size: 12px;
-
-    color: #333;
-}
-
-
-/* ESTADO */
-
-.ticket-estado {
-    margin-top: 12px;
-
-    font-weight: bold;
-}
-
-
-/* =========================
-   CUANDO NO HAY TICKETS
-   ========================= */
-
-.sin-tickets {
-    width: 100%;
-
-    min-height: 120px;
-
-    background-color: #f5f1f7;
-
-    border: 1px dashed #aaa;
-
-    border-radius: 12px;
-
-    display: flex;
-
-    align-items: center;
-    justify-content: center;
-
-    color: #666;
-
-    font-size: 14px;
-}
-
-
-/* =========================
-   BOTÓN +
-   ========================= */
-
-.crear-ticket-menu {
-    position: fixed;
-
-    right: 25px;
-    bottom: 25px;
-
-    display: flex;
-
-    flex-direction: column;
-
-    align-items: flex-end;
-
     gap: 10px;
 }
 
-
-/* CÍRCULO + */
-
-.boton-mas {
-    width: 55px;
-    height: 55px;
-
-    border-radius: 50%;
-
-    border: none;
-
-    background-color: #a9b9df;
-
+.principal-nombre {
     color: white;
-
-    font-size: 32px;
-
-    line-height: 1;
+    font-size: 18px;
 }
 
+.principal-perfil {
+    width: 34px;
+    height: 34px;
 
-/* =========================
-   OPCIONES
-   ========================= */
-
-.opciones-tickets {
-    width: 230px;
+    border: 2px solid #222;
+    border-radius: 50%;
 
     background-color: white;
 
-    border: 1px solid #aaa;
-
-    border-radius: 10px;
-
-    padding: 8px;
-
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-
     display: flex;
-
     flex-direction: column;
+    align-items: center;
+    justify-content: center;
 
-    gap: 6px;
+    gap: 1px;
+    padding: 0;
+
+    cursor: pointer;
 }
 
-.opciones-tickets button {
+.principal-perfil-cabeza {
+    width: 10px;
+    height: 10px;
+
+    border: 1.5px solid #222;
+    border-radius: 50%;
+}
+
+.principal-perfil-cuerpo {
+    width: 18px;
+    height: 10px;
+
+    border: 1.5px solid #222;
+    border-radius: 12px 12px 0 0;
+
+    border-bottom: none;
+}
+
+/* BARRA LATERAL */
+
+.principal-sidebar {
+    position: absolute;
+
+    top: 50px;
+    left: 0;
+    bottom: 0;
+
+    width: 70px;
+
+    background-color: #8dbbdd;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 25px 0 25px;
+}
+
+/* CALENDARIO */
+
+.sidebar-calendario {
+    width: 34px;
+    height: 34px;
+
+    border: 2px solid #222;
+    border-radius: 5px;
+
+    background-color: transparent;
+
+    position: relative;
+    cursor: pointer;
+}
+
+.sidebar-calendario::before {
+    content: "";
+
+    position: absolute;
+    top: 8px;
+    left: 0;
+
+    width: 100%;
+    height: 2px;
+
+    background-color: #222;
+}
+
+.sidebar-calendario::after {
+    content: "";
+
+    position: absolute;
+    top: -6px;
+    left: 7px;
+
+    width: 2px;
+    height: 9px;
+
+    background-color: #222;
+
+    box-shadow: 16px 0 #222;
+}
+
+.sidebar-calendario span {
+    position: absolute;
+    top: 14px;
+    left: 0;
+
+    width: 100%;
+    height: 2px;
+
+    background-color: #222;
+}
+
+/* BOTÓN + */
+
+.sidebar-crear-contenedor {
+    position: relative;
+    display: flex;
+    justify-content: center;
+}
+
+.sidebar-crear {
+    width: 38px;
+    height: 38px;
+
+    border: 2px solid #222;
+    border-radius: 50%;
+
+    background-color: transparent;
+
+    font-size: 28px;
+    font-weight: normal;
+    line-height: 32px;
+
+    color: #222;
+
+    cursor: pointer;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 0 0 3px;
+}
+
+.sidebar-crear:hover {
+    background-color: rgba(255, 255, 255, 0.25);
+}
+
+/* MENÚ */
+
+.menu-tickets {
+    position: absolute;
+
+    bottom: 48px;
+    left: 50%;
+
+    transform: translateX(-50%);
+
+    width: 130px;
+
+    background-color: white;
+
+    border: 1px solid #333;
+    border-radius: 7px;
+
+    padding: 6px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+
+    z-index: 10;
+}
+
+.menu-tickets button {
     width: 100%;
 
     border: none;
+    border-radius: 5px;
 
-    border-radius: 7px;
+    background-color: #c5a9d8;
 
-    background-color: #e7d7ec;
+    padding: 7px 5px;
 
-    padding: 9px;
+    font-size: 10px;
+    cursor: pointer;
+}
 
+/* CONTENIDO */
+
+.principal-main {
+    margin-left: 70px;
+
+    padding: 25px 30px 40px;
+
+    min-height: calc(100vh - 50px);
+}
+
+.principal-main h1 {
+    margin: 0 0 14px;
+
+    font-size: 30px;
+    font-weight: normal;
+    color: #111;
+}
+
+/* LISTA */
+
+.tickets-lista {
+    width: 100%;
+    max-width: 650px;
+
+    display: flex;
+    flex-direction: column;
+
+    gap: 38px;
+
+    padding-left: 25px;
+}
+
+/* TARJETAS */
+
+.ticket-card {
+    width: 100%;
+    min-height: 125px;
+
+    background-color: white;
+
+    border: 2px solid #222;
+    border-radius: 15px;
+
+    position: relative;
+
+    padding: 18px 22px 10px;
+
+    box-shadow: -10px 14px #ed747c;
+}
+
+.ticket-card.solucionado {
+    box-shadow: -10px 14px #9bc89c;
+}
+
+.ticket-card h2 {
+    margin: 0 0 8px;
+
+    font-size: 18px;
+    font-weight: normal;
+    color: #111;
+}
+
+.ticket-descripcion {
+    margin: 0 0 8px;
+
+    font-size: 13px;
     color: #333;
-
-    font-size: 11px;
-
-    text-align: left;
 }
 
-.opciones-tickets button:hover {
-    background-color: #d9c3e0;
+.ticket-detalles {
+    margin: 0 0 8px;
+
+    font-size: 12px;
+    color: #333;
 }
 
+.ticket-detalles p {
+    margin: 3px 0;
+}
 
-/* =========================
-   RESPONSIVE
-   ========================= */
+.ticket-estado {
+    width: 100%;
+    min-height: 28px;
 
-@media (max-width: 600px) {
+    background-color: #a9b9df;
 
-    .pagina-contenido {
-        padding: 30px 15px 100px;
+    border-radius: 14px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 5px 10px;
+
+    font-size: 13px;
+    color: #111;
+
+    margin-top: 8px;
+}
+
+.ticket-cancelar {
+    position: absolute;
+
+    top: 12px;
+    right: 14px;
+
+    width: 105px;
+    height: 34px;
+
+    border: 1px solid #333;
+    border-radius: 18px;
+
+    background-color: white;
+
+    font-size: 13px;
+    color: #222;
+
+    cursor: pointer;
+}
+
+.ticket-cancelar:hover {
+    background-color: #f1f1f1;
+}
+
+/* SIN TICKETS */
+
+.sin-tickets {
+    width: 100%;
+    min-height: 125px;
+
+    border: 2px solid #222;
+    border-radius: 15px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 16px;
+
+    background-color: white;
+
+    box-shadow: -10px 14px #ed747c;
+}
+
+/* CELULAR */
+
+@media (max-width: 700px) {
+
+    .principal-header {
+        height: 50px;
+        padding: 0 10px;
     }
 
-    .pagina-contenido h1 {
-        font-size: 24px;
+    .principal-nombre {
+        font-size: 16px;
     }
 
-    .ticket-datos {
-        grid-template-columns: 1fr;
+    .principal-perfil {
+        width: 32px;
+        height: 32px;
     }
 
-    .crear-ticket-menu {
-        right: 15px;
-        bottom: 15px;
+    .principal-sidebar {
+        top: 50px;
+        width: 58px;
+    }
+
+    .principal-main {
+        margin-left: 58px;
+        padding: 22px 12px 35px;
+    }
+
+    .principal-main h1 {
+        font-size: 26px;
+    }
+
+    .tickets-lista {
+        padding-left: 8px;
+        gap: 32px;
+    }
+
+    .ticket-card {
+        padding: 16px 14px 10px;
+    }
+
+    .ticket-card h2 {
+        font-size: 16px;
+    }
+
+    .ticket-cancelar {
+        position: static;
+
+        display: block;
+        margin: 0 0 10px auto;
+
+        width: 95px;
+        height: 30px;
+
+        font-size: 12px;
+    }
+
+    .ticket-estado {
+        font-size: 12px;
     }
 
 }

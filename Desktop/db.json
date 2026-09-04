@@ -1,0 +1,14 @@
+{
+  "usuarios": [
+    {
+      "nombre": "Julieta Candelaria Sosa Quiroga",
+      "email": "julieta.sosa@anima.edu.uy",
+      "cedula": "12345678",
+      "rol": "Estudiante",
+      "contraseña": "1234",
+      "confirmarContraseña": "1234",
+      "id": "pZsWnm0-PGk"
+      }
+  ],
+  "tickets": []
+}
