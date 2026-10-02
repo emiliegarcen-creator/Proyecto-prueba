@@ -1,3 +1,4 @@
+
 body {
     display: flex;
     flex-direction: column;
@@ -33,21 +34,26 @@ p {
   border: 3px solid #000000;
   border-radius: 12px;
   box-shadow: 0px 4px 10px #C6B1D7; /*Borde externo*/
-  align-content: center;
+  align-self: center;
+
 }
 
 /*Botones*/
 .botones{
-    width: 18%;
+    width: 60%;
   height: 5%;
+  cursor: pointer;
 }
 
+/*PONER EL ID EN LOS BOTONES*/
 #boton-subir{
     background-color: #adbbdf;
 }
 
 #boton-cancelar{
     background-color: #e47979;
+    border: 1px solid #000000;
+    border-radius: 12px;
 }
 /*Falta el boton de subir archivo que no se encontro lo encontramos:c*/
 
@@ -59,4 +65,22 @@ input {
   background-color: #e4e1e1;
 }
 
+select{
+    cursor: pointer;
+    height: 23px;
+    width: 110%;
+    background-color: #e4e1e1;
+    border: 2px solid #000000;
+    border-radius: 12px;
+    color: #333;
+}
 
+textarea{
+    background-color: #e4e1e1;
+    border: 2px solid #000000;
+    border-radius: 12px;
+    color: #333;
+   width: 331px; 
+   height: 66px;
+    align-self: center;
+}

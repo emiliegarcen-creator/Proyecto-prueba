@@ -1,0 +1,15 @@
+#no_content{
+    font-style: italic;
+    font-size: small;
+}
+
+.ticket{
+    width: 90%;
+  height: 50%;
+  background-color: #f1f1f1;
+  border: 2px solid #000000;
+  border-radius: 12px;
+  box-shadow: 2px 4px 10px #C6B1D7; 
+  color: #000000;
+  align-self: center;
+}
