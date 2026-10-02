@@ -571,7 +571,7 @@ function Registro({
 
 
 
-                <button id='' type="submit">
+                <button className='botones' type="submit">
 
 
                     Registrarse

@@ -40,7 +40,7 @@ p {
 
 /*Botones*/
 .botones{
-    width: 18%;
+    width: 60%;
   height: 5%;
   cursor: pointer;
 }
@@ -52,6 +52,8 @@ p {
 
 #boton-cancelar{
     background-color: #e47979;
+    border: 1px solid #000000;
+    border-radius: 12px;
 }
 /*Falta el boton de subir archivo que no se encontro lo encontramos:c*/
 
@@ -82,5 +84,3 @@ textarea{
    height: 66px;
     align-self: center;
 }
-
-
