@@ -1,4 +1,5 @@
 import { useState } from "react";
+import "./Perfil.css";
 
 function Perfil({
     usuario,
@@ -49,7 +50,8 @@ function Perfil({
     return (
         <div className="perfil">
             {/* Boton de inicio */}
-            <button
+            <button className="botones"
+            id="boton-subir"
                 type="button"
                 onClick={() =>
                     cambiarPagina(
@@ -59,6 +61,7 @@ function Perfil({
             >
                 Casita
             </button>
+
 
             <main>
                 {/* Foto de perfil */}
@@ -119,7 +122,9 @@ function Perfil({
                     </p>
                 </div>
 
-                <button
+                <button 
+                className="botones"
+                id="boton-cancelar"
                     type="button"
                     onClick={cerrarSesion}
                 >

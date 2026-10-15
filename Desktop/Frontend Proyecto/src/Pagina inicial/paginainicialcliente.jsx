@@ -1,3 +1,4 @@
+import "./paginainicialcliente.css"
 import { useEffect, useState } from "react";
 
 function Ticket({
@@ -30,17 +31,6 @@ function Ticket({
             </p>
 
             {/* Boton para visualizar el ticket */}
-            <button
-                type="button"
-                onClick={() =>
-                    setAbierto(!abierto)
-                }
-            >
-                {abierto
-                    ? "Ocultar detalles"
-                    : "Ver ticket"}
-            </button>
-
             {abierto && (
                 <div>
                     {/* Datos del ticket de reparación */}
@@ -100,6 +90,8 @@ function Ticket({
 
                     {/* Boton para eliminar ticket */}
                     <button
+                    className="botones"
+                    id="boton-cancelar"
                         type="button"
                         onClick={eliminar}
                     >
@@ -107,6 +99,18 @@ function Ticket({
                     </button>
                 </div>
             )}
+              <button
+              id="boton-subir"
+              className="botones"
+                type="button"
+                onClick={() =>
+                    setAbierto(!abierto)
+                }
+            >
+                {abierto
+                    ? "Ocultar detalles"
+                    : "Ver ticket"}
+            </button>
         </article>
     );
 }
@@ -171,7 +175,7 @@ function PaginaInicialCliente({
                 </section>
             </main>
 
-            <div>
+            <div className="select_ticket">
                 {/* Boton para crear tickets */}
                 <button
                     type="button"

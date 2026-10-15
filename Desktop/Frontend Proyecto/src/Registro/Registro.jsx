@@ -211,6 +211,8 @@ function Registro({
             <br />
 
             <button
+                className="botones"
+                id="boton-cancelar"
                 type="button"
                 onClick={() =>
                     cambiarPagina("login")

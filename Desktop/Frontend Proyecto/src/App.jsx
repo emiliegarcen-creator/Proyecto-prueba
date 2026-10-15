@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { BrowserRouter, Routes, Route, useNavigate, useLocation } from "react-router-dom";
 import Registro from "./Registro/Registro";
 import InicioSesion from "./Inicio de sesión/iniciodesesion";
-import PaginaInicialCliente from "./Paginainicialcliente/paginainicialcliente";
+import PaginaInicialCliente from "./Pagina inicial/paginainicialcliente";
 import CrearTicket from "./Crear ticket/CrearTicket";
 import TicketMantenimiento from "./Ticket Mantenimiento/TicketMantenimiento";
 import Perfil from "./Perfil/Perfil";

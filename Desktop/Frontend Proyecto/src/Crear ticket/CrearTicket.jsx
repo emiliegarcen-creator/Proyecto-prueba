@@ -278,6 +278,7 @@ function CrearTicket({
                 </button>
 
                 <button
+                    id="boton-cancelar"
                     type="button"
                     onClick={() =>
                         cambiarPagina(

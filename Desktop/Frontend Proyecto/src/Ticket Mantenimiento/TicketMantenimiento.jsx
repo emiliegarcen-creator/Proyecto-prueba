@@ -74,8 +74,8 @@ function TicketMantenimiento({
             <h1>
                 Ticket de mantenimiento
             </h1>
-
-            <form onSubmit={enviarTicket}>
+ 
+            <form onSubmit={enviarTicket} className="ticket-mantenimiento">
                 {/* Adjuntar archivo */}
                 <div>
                     <label>
@@ -141,6 +141,7 @@ function TicketMantenimiento({
                 </button>
 
                 <button
+                    id="boton-cancelar"
                     type="button"
                     onClick={() =>
                         cambiarPagina(

@@ -1,4 +1,5 @@
 import { useState } from "react";
+import './iniciodesesion.css';
 
 function InicioSesion({
     iniciarSesion,
@@ -75,6 +76,7 @@ function InicioSesion({
             <br />
 
             <button
+                class="boton-crear-cuenta"
                 type="button"
                 onClick={() => {
                     console.log(
