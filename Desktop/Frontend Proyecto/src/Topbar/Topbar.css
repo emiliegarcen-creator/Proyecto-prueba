@@ -1,0 +1,37 @@
+.topbar {
+    position: fixed;
+    top: 0;
+    left: 70px;                       /* empieza donde termina el sidebar cerrado */
+    right: 0;
+    height: 60px;
+    box-sizing: border-box;
+    padding: 0 20px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;        /* botón del perfil a la derecha */
+    background-color: #C6B1D7;
+    border-bottom: 2px solid #000000;
+    z-index: 90;                      /* menor que el sidebar (100) */
+}
+
+.topbar .topbar-perfil {
+    height: 40px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 0 14px;
+    background-color: #cecbcb;
+    border: 2px solid #000000;
+    border-radius: 12px;
+    font-size: 15px;
+    cursor: pointer;
+}
+
+.topbar .topbar-perfil.activo {
+    background-color: #adbbdf;
+    font-weight: bold;
+}
+
+.topbar .topbar-icono {
+    font-size: 18px;
+}

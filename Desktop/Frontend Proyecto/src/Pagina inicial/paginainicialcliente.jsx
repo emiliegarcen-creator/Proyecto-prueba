@@ -116,7 +116,6 @@ function Ticket({
 }
 
 function PaginaInicialCliente({
-    usuario,
     tickets,
     eliminarTicket,
     cambiarPagina
@@ -142,17 +141,6 @@ function PaginaInicialCliente({
 
     return (
         <div className="pagina-principal">
-            <header>
-                <button
-                    type="button"
-                    onClick={() =>
-                        cambiarPagina("perfil")
-                    }
-                >
-                    {usuario} Personaemoji
-                </button>
-            </header>
-
             <main>
                 <h1>
                     Tus Tickets

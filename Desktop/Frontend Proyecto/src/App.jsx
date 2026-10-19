@@ -6,49 +6,50 @@ import PaginaInicialCliente from "./Pagina inicial/paginainicialcliente";
 import CrearTicket from "./Crear ticket/CrearTicket";
 import TicketMantenimiento from "./Ticket Mantenimiento/TicketMantenimiento";
 import Perfil from "./Perfil/Perfil";
+import Calendario from "./Calendario/CalendarioCliente";
+import Sidebar from "./Sidebar/Sidebar";
+import Topbar from "./Topbar/Topbar";
 
 // Componente para actualizar el título de la página automáticamente según la ruta activa
 function TituloPagina() {
     const location = useLocation();
 
-useEffect(() => {
-
+    useEffect(() => {
         console.log("PÁGINA ACTUAL:", location.pathname);
 
         if (location.pathname === "/" || location.pathname === "/login") {
             document.title = "Iniciar sesión";
-
         } else if (location.pathname === "/registro") {
             document.title = "Registro";
-
         } else if (location.pathname === "/inicio") {
             document.title = "Página principal";
-
+        } else if (location.pathname === "/calendario") {
+            document.title = "Calendario";
         } else if (location.pathname === "/crear-ticket") {
             document.title = "Crear ticket";
-
         } else if (location.pathname === "/mantenimiento") {
             document.title = "Ticket de mantenimiento";
-
         } else if (location.pathname === "/perfil") {
             document.title = "Perfil";
-
         }
-
     }, [location]);
 
     return null;
-
 }
 
 function AppContenido() {
     const navigate = useNavigate();
+    const location = useLocation();
 
     const [usuario, setUsuario] = useState("");
     const [email, setEmail] = useState("");
     const [rol, setRol] = useState("");
     const [tickets, setTickets] = useState([]);
     const [usuariosRegistrados, setUsuariosRegistrados] = useState([]);
+
+    // El sidebar no se muestra en login ni registro
+    const rutasSinSidebar = ["/", "/login", "/registro"];
+    const mostrarSidebar = !rutasSinSidebar.includes(location.pathname);
 
     // Cambiar de página utilizando React Router Dom
     const cambiarPagina = (nuevaPagina) => {
@@ -63,6 +64,9 @@ function AppContenido() {
                 break;
             case "inicio":
                 navigate("/inicio");
+                break;
+            case "calendario":
+                navigate("/calendario");
                 break;
             case "crear-ticket":
                 navigate("/crear-ticket");
@@ -113,9 +117,7 @@ function AppContenido() {
         );
 
         if (!usuarioEncontrado) {
-            alert(
-                "Datos invalidos, por favor intente nuevamente"
-            );
+            alert("Datos invalidos, por favor intente nuevamente");
             return;
         }
 
@@ -139,76 +141,88 @@ function AppContenido() {
     return (
         <div>
             <TituloPagina />
-            <Routes>
-                <Route
-                    path="/"
-                    element={
-                        <InicioSesion
-                            iniciarSesion={iniciarSesion}
-                            cambiarPagina={cambiarPagina}
-                        />
-                    }
-                />
-                <Route
-                    path="/login"
-                    element={
-                        <InicioSesion
-                            iniciarSesion={iniciarSesion}
-                            cambiarPagina={cambiarPagina}
-                        />
-                    }
-                />
-                <Route
-                    path="/registro"
-                    element={
-                        <Registro
-                            agregarUsuario={agregarUsuario}
-                            cambiarPagina={cambiarPagina}
-                        />
-                    }
-                />
-                <Route
-                    path="/inicio"
-                    element={
-                        <PaginaInicialCliente
-                            usuario={usuario}
-                            tickets={tickets}
-                            eliminarTicket={eliminarTicket}
-                            cambiarPagina={cambiarPagina}
-                        />
-                    }
-                />
-                <Route
-                    path="/crear-ticket"
-                    element={
-                        <CrearTicket
-                            agregarTicket={agregarTicket}
-                            cambiarPagina={cambiarPagina}
-                        />
-                    }
-                />
-                <Route
-                    path="/mantenimiento"
-                    element={
-                        <TicketMantenimiento
-                            agregarTicket={agregarTicket}
-                            cambiarPagina={cambiarPagina}
-                        />
-                    }
-                />
-                <Route
-                    path="/perfil"
-                    element={
-                        <Perfil
-                            usuario={usuario}
-                            email={email}
-                            rol={rol}
-                            cambiarPagina={cambiarPagina}
-                            cerrarSesion={cerrarSesion}
-                        />
-                    }
-                />
-            </Routes>
+
+            {mostrarSidebar && <Sidebar cambiarPagina={cambiarPagina} />}
+{mostrarSidebar && (
+    <Topbar usuario={usuario} cambiarPagina={cambiarPagina} />
+)}
+
+            <div className={mostrarSidebar ? "contenido-con-sidebar" : ""}>
+                <Routes>
+                    <Route
+                        path="/"
+                        element={
+                            <InicioSesion
+                                iniciarSesion={iniciarSesion}
+                                cambiarPagina={cambiarPagina}
+                            />
+                        }
+                    />
+                    <Route
+                        path="/login"
+                        element={
+                            <InicioSesion
+                                iniciarSesion={iniciarSesion}
+                                cambiarPagina={cambiarPagina}
+                            />
+                        }
+                    />
+                    <Route
+                        path="/registro"
+                        element={
+                            <Registro
+                                agregarUsuario={agregarUsuario}
+                                cambiarPagina={cambiarPagina}
+                            />
+                        }
+                    />
+                    <Route
+                        path="/inicio"
+                        element={
+                            <PaginaInicialCliente
+                                usuario={usuario}
+                                tickets={tickets}
+                                eliminarTicket={eliminarTicket}
+                                cambiarPagina={cambiarPagina}
+                            />
+                        }
+                    />
+                    <Route
+                        path="/calendario"
+                        element={<Calendario />}
+                    />
+                    <Route
+                        path="/crear-ticket"
+                        element={
+                            <CrearTicket
+                                agregarTicket={agregarTicket}
+                                cambiarPagina={cambiarPagina}
+                            />
+                        }
+                    />
+                    <Route
+                        path="/mantenimiento"
+                        element={
+                            <TicketMantenimiento
+                                agregarTicket={agregarTicket}
+                                cambiarPagina={cambiarPagina}
+                            />
+                        }
+                    />
+                    <Route
+                        path="/perfil"
+                        element={
+                            <Perfil
+                                usuario={usuario}
+                                email={email}
+                                rol={rol}
+                                cambiarPagina={cambiarPagina}
+                                cerrarSesion={cerrarSesion}
+                            />
+                        }
+                    />
+                </Routes>
+            </div>
         </div>
     );
 }
