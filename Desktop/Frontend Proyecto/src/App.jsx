@@ -1,14 +1,14 @@
 import { useEffect, useState } from "react";
 import { BrowserRouter, Routes, Route, useNavigate, useLocation } from "react-router-dom";
-import Registro from "./Registro/Registro";
-import InicioSesion from "./Inicio de sesión/iniciodesesion";
-import PaginaInicialCliente from "./Pagina inicial/paginainicialcliente";
-import CrearTicket from "./Crear ticket/CrearTicket";
-import TicketMantenimiento from "./Ticket Mantenimiento/TicketMantenimiento";
-import Perfil from "./Perfil/Perfil";
-import Calendario from "./Calendario/CalendarioCliente";
-import Sidebar from "./Sidebar/Sidebar";
-import Topbar from "./Topbar/Topbar";
+import Registro from "./Pagina de Cliente/Registro/Registro";
+import InicioSesion from "./Pagina de Cliente/Inicio de sesión/iniciodesesion";
+import PaginaInicialCliente from "./Pagina de Cliente/Pagina inicial/paginainicialcliente";
+import CrearTicket from "./Pagina de Cliente/Crear ticket/CrearTicket";
+import TicketMantenimiento from "./Pagina de Cliente/Ticket Mantenimiento/TicketMantenimiento";
+import Perfil from "./Pagina de Cliente/Perfil/Perfil";
+import Calendario from "./Pagina de Cliente/CalendarioCliente/CalendarioCliente";
+import Sidebar from "./Pagina de Cliente/Sidebar/Sidebar";
+import Topbar from "./Pagina de Cliente/Topbar/Topbar";
 
 // Componente para actualizar el título de la página automáticamente según la ruta activa
 function TituloPagina() {
