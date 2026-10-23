@@ -1,6 +1,8 @@
 import "./CrearTicket.css";
 import { useState } from "react";
 
+const API_URL = import.meta.env.VITE_API_URL ?? "";
+
 function CrearTicket({ cambiarPagina, ciUsuario }) {
     const [descripcion, setDescripcion] = useState("");
     const [idComputadora, setIdComputadora] = useState("");
@@ -21,7 +23,7 @@ function CrearTicket({ cambiarPagina, ciUsuario }) {
         }
 
         try {
-            const respuesta = await fetch(`http://localhost:3001/usuarios/${ciUsuario}/ticket`, {
+            const respuesta = await fetch(`${API_URL}/usuarios/${ciUsuario}/ticket`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({

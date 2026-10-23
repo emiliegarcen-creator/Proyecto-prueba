@@ -1,7 +1,7 @@
 import "./PaginaInicialSoporte.css";
 import { useEffect, useState } from "react";
 
-const API_URL = "http://localhost:3001";
+const API_URL = import.meta.env.VITE_API_URL ?? "";
 
 function PaginaInicialSoporte() {
     const [tickets, setTickets] = useState([]);
@@ -12,7 +12,6 @@ function PaginaInicialSoporte() {
     const [ticketDetalle, setTicketDetalle] = useState(null);
     const [ticketACerrar, setTicketACerrar] = useState(null);
 
-    // Formulario de cierre
     const [reparadoPor, setReparadoPor] = useState("");
     const [arreglos, setArreglos] = useState("");
     const [horarioEntrega, setHorarioEntrega] = useState("");
@@ -86,7 +85,7 @@ function PaginaInicialSoporte() {
 
     const ticketsFiltrados = tickets.filter((ticket) => {
         const coincidePrioridad = !filtroPrioridad || ticket.prioridad === filtroPrioridad;
-        const coincideId = !filtroId || ticket.ID_maquina.toString().includes(filtroId);
+        const coincideId = !filtroId || (ticket.ID_maquina !== null && ticket.ID_maquina !== undefined && ticket.ID_maquina.toString().includes(filtroId));
         return coincidePrioridad && coincideId;
     });
 
@@ -173,7 +172,7 @@ function PaginaInicialSoporte() {
                         <h3>Detalle del Ticket #{ticketDetalle.ID_ticket}</h3>
                         <p><strong>Descripción:</strong> {ticketDetalle.descripcion}</p>
                         <p><strong>Locker:</strong> {ticketDetalle.nrolocker}</p>
-                        <p><strong>ID Máquina:</strong> {ticketDetalle.ID_maquina}</p>
+                        <p><strong>ID Máquina:</strong> {ticketDetalle.ID_maquina ?? 'Sin asignación'}</p>
                         <button type="button" onClick={() => setTicketDetalle(null)}>
                             Cerrar
                         </button>
