@@ -89,17 +89,16 @@ function PaginaInicialSoporte() {
         const coincideId = !filtroId || ticket.ID_maquina.toString().includes(filtroId);
         return coincidePrioridad && coincideId;
     });
-
     return (
-        <div>
-            <div>
-                <button type="button" onClick={() => setMostrarFiltros(!mostrarFiltros)}>
+        <div className="pagina-principal">
+            <div className="select_ticket">
+                <button className="botones" type="button" onClick={() => setMostrarFiltros(!mostrarFiltros)}>
                     Filtrar <span>▼</span>
                 </button>
             </div>
 
             {mostrarFiltros && (
-                <div>
+                <div className="select_ticket">
                     <select
                         value={filtroPrioridad}
                         onChange={(e) => setFiltroPrioridad(e.target.value)}
@@ -121,10 +120,11 @@ function PaginaInicialSoporte() {
 
             <div>
                 {ticketsFiltrados.map((ticket) => (
-                    <div key={ticket.ID_ticket}>
+                    <div className="ticket" key={ticket.ID_ticket}>
                         <div>
                             <div>
                                 <button
+                                    className="botones"
                                     type="button"
                                     onClick={() =>
                                         setMenuPrioridadId(
@@ -137,19 +137,19 @@ function PaginaInicialSoporte() {
 
                                 {menuPrioridadId === ticket.ID_ticket && (
                                     <div>
-                                        <button type="button" onClick={() => cambiarPrioridad(ticket.ID_ticket, "Baja")}>
+                                        <button className="botones" type="button" onClick={() => cambiarPrioridad(ticket.ID_ticket, "Baja")}>
                                             Baja
                                         </button>
-                                        <button type="button" onClick={() => cambiarPrioridad(ticket.ID_ticket, "Media")}>
+                                        <button className="botones" type="button" onClick={() => cambiarPrioridad(ticket.ID_ticket, "Media")}>
                                             Media
                                         </button>
-                                        <button type="button" onClick={() => cambiarPrioridad(ticket.ID_ticket, "Alta")}>
+                                        <button className="botones" type="button" onClick={() => cambiarPrioridad(ticket.ID_ticket, "Alta")}>
                                             Alta
                                         </button>
                                     </div>
                                 )}
 
-                                <button type="button" onClick={() => setTicketACerrar(ticket)}>
+                                <button className="botones" id="boton-cancelar" type="button" onClick={() => setTicketACerrar(ticket)}>
                                     Cerrar Ticket
                                 </button>
                             </div>
@@ -160,7 +160,7 @@ function PaginaInicialSoporte() {
                             </div>
                         </div>
 
-                        <button type="button" onClick={() => setTicketDetalle(ticket)}>
+                        <button className="botones" id="boton-subir" type="button" onClick={() => setTicketDetalle(ticket)}>
                             Descripción
                         </button>
                     </div>
@@ -169,12 +169,12 @@ function PaginaInicialSoporte() {
 
             {ticketDetalle && (
                 <div>
-                    <div>
+                    <div className="ticket">
                         <h3>Detalle del Ticket #{ticketDetalle.ID_ticket}</h3>
                         <p><strong>Descripción:</strong> {ticketDetalle.descripcion}</p>
                         <p><strong>Locker:</strong> {ticketDetalle.nrolocker}</p>
                         <p><strong>ID Máquina:</strong> {ticketDetalle.ID_maquina}</p>
-                        <button type="button" onClick={() => setTicketDetalle(null)}>
+                        <button className="botones" type="button" onClick={() => setTicketDetalle(null)}>
                             Cerrar
                         </button>
                     </div>
@@ -183,7 +183,7 @@ function PaginaInicialSoporte() {
 
             {ticketACerrar && (
                 <div>
-                    <div>
+                    <div className="ticket">
                         <h2>Arreglos realizados en la máquina</h2>
                         <form onSubmit={manejarCierre}>
                             <div>
@@ -217,8 +217,8 @@ function PaginaInicialSoporte() {
                                     onChange={(e) => setHorarioEntrega(e.target.value)}
                                 />
                             </div>
-                            <button type="submit">Subir</button>
-                            <button type="button" onClick={() => setTicketACerrar(null)}>
+                            <button className="botones" id="boton-subir" type="submit">Subir</button>
+                            <button className="botones" id="boton-cancelar" type="button" onClick={() => setTicketACerrar(null)}>
                                 Cancelar
                             </button>
                         </form>

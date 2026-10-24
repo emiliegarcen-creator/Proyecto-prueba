@@ -5,6 +5,7 @@ import PaginaInicialCliente from "./Pagina de Cliente/Pagina inicial/paginainici
 import CrearTicket from "./Pagina de Cliente/Crear ticket/CrearTicket";
 import TicketMantenimiento from "./Pagina de Cliente/Ticket Mantenimiento/TicketMantenimiento";
 import Perfil from "./Pagina de Cliente/Perfil/Perfil";
+import PaginaInicialSoporte from "./Pagina de Soporte/Pagina Inicial Soporte/PaginaInicialSoporte";
 
 const API_URL = "http://localhost:3001";
 
@@ -12,7 +13,14 @@ function App() {
     const [usuario, setUsuario] = useState("");
     const [email, setEmail] = useState("");
     const [rol, setRol] = useState("");
-    const [pagina, setPagina] = useState("login");
+
+
+    //AAAAAAAAAAAAAAAAAAAAAAAA
+    const [pagina, setPagina] = useState("inicio-soporte");
+    //const [pagina, setPagina] = useState("login");
+
+
+
     const [tickets, setTickets] = useState([]);
 
     useEffect(() => {
@@ -116,6 +124,13 @@ function App() {
                     cambiarPagina={cambiarPagina}
                     cerrarSesion={cerrarSesion}
                 />
+            )}
+            {pagina === "inicio-soporte" && (
+                <PaginaInicialSoporte
+                    usuario={usuario}
+                    cambiarPagina={cambiarPagina}
+                    cerrarSesion={cerrarSesion}
+                 />
             )}
         </div>
     );
