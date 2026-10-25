@@ -15,9 +15,8 @@ function App() {
     const [rol, setRol] = useState("");
 
 
-    //AAAAAAAAAAAAAAAAAAAAAAAA
-    const [pagina, setPagina] = useState("inicio-soporte");
-    //const [pagina, setPagina] = useState("login");
+        //const [pagina, setPagina] = useState("inicio-soporte"); para ver la pagina de soporte sin tener cuenta jiji
+        const [pagina, setPagina] = useState("login");
 
 
 
