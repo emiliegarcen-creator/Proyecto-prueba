@@ -129,6 +129,7 @@ function CrearTicket({
                         <img
                             src={imagen}
                             alt="Vista previa"
+                            className="ticket-imagen"
                         />
                     )}
                 </div>

@@ -35,3 +35,10 @@
 .topbar .topbar-icono {
     font-size: 18px;
 }
+
+.topbar .topbar-foto {
+    width: 28px;
+    height: 28px;
+    object-fit: cover;
+    border-radius: 50%;
+}

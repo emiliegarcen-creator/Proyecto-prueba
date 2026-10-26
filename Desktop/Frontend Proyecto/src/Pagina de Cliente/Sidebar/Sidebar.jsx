@@ -3,7 +3,7 @@ import "./Sidebar.css";
 
 const BOTONES = [
      { texto: "Inicio", icono: "🏠", pagina: "inicio", ruta: "/inicio" },
-    //{ texto: "Calendario", icono: "📅", pagina: "calendario", ruta: "/calendario" }
+    { texto: "Calendario", icono: "📅", pagina: "calendario", ruta: "/calendario" }
 ];
 
 function Sidebar({ cambiarPagina }) {

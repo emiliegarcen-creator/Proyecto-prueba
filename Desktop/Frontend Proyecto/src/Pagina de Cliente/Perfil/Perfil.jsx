@@ -5,11 +5,12 @@ function Perfil({
     usuario,
     email,
     rol,
+    fotoPerfil,
+    setFotoPerfil,
     cambiarPagina,
     cerrarSesion
 }) {
-    // Estado para la foto
-    const [foto, setFoto] = useState(null);
+    // La foto elegida pero todavía no confirmada
     const [fotoTemporal, setFotoTemporal] = useState(null);
 
     // CAMBIAR FOTO
@@ -18,63 +19,53 @@ function Perfil({
 
         if (archivo) {
             // Validar que sea una imagen
-            if (
-                !archivo.type.startsWith("image/")
-            ) {
-                alert(
-                    "Seleccione una imagen válida."
-                );
+            if (!archivo.type.startsWith("image/")) {
+                alert("Seleccione una imagen válida.");
                 return;
             }
 
-            const nuevaFoto = URL.createObjectURL(archivo);
-            setFotoTemporal(nuevaFoto);
+            setFotoTemporal(URL.createObjectURL(archivo));
         }
     };
 
     // SUBIR FOTO
     const subirFoto = () => {
         if (!fotoTemporal) {
-            alert(
-                "Seleccione una foto primero."
-            );
+            alert("Seleccione una foto primero.");
             return;
         }
 
-        setFoto(fotoTemporal);
-        alert(
-            "Foto de perfil actualizada."
-        );
+        setFotoPerfil(fotoTemporal);
+        setFotoTemporal(null);
+        alert("Foto de perfil actualizada.");
     };
+
+    // Lo que se muestra: primero la vista previa, si no, la foto guardada
+    const fotoMostrada = fotoTemporal || fotoPerfil;
 
     return (
         <div className="perfil">
             {/* Boton de inicio */}
-            <button className="botones"
-            id="boton-subir"
+            <button
+                className="botones"
+                id="boton-subir"
                 type="button"
-                onClick={() =>
-                    cambiarPagina(
-                        "inicio"
-                    )
-                }
+                onClick={() => cambiarPagina("inicio")}
             >
                 Casita
             </button>
 
-
             <main>
                 {/* Foto de perfil */}
                 <div className="foto-perfil">
-                    {foto ? (
+                    {fotoMostrada ? (
                         <img
-                            src={foto}
+                            src={fotoMostrada}
                             alt="Foto de perfil"
+                            className="foto-perfil-img"
                         />
                     ) : (
-                        <span>
-                            Foto de perfil
-                        </span>
+                        <span>Foto de perfil</span>
                     )}
 
                     {/* Boton para cambiar foto de perfil */}
@@ -89,10 +80,7 @@ function Perfil({
                     </label>
 
                     {fotoTemporal && (
-                        <button
-                            type="button"
-                            onClick={subirFoto}
-                        >
+                        <button type="button" onClick={subirFoto}>
                             Subir
                         </button>
                     )}
@@ -100,31 +88,22 @@ function Perfil({
 
                 {/* Nombre de usuario */}
                 <div className="dato-perfil">
-                    <p>
-                        {usuario ||
-                            "Nombre Completo"}
-                    </p>
+                    <p>{usuario || "Nombre Completo"}</p>
                 </div>
 
                 {/* Mail de usuario */}
                 <div className="dato-perfil">
-                    <p>
-                        {email ||
-                            "Mail"}
-                    </p>
+                    <p>{email || "Mail"}</p>
                 </div>
 
                 {/* Rol */}
                 <div className="dato-perfil">
-                    <p>
-                        {rol ||
-                            "Rol"}
-                    </p>
+                    <p>{rol || "Rol"}</p>
                 </div>
 
-                <button 
-                className="botones"
-                id="boton-cancelar"
+                <button
+                    className="botones"
+                    id="boton-cancelar"
                     type="button"
                     onClick={cerrarSesion}
                 >

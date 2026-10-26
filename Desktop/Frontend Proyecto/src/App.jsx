@@ -40,6 +40,7 @@ function TituloPagina() {
 function AppContenido() {
     const navigate = useNavigate();
     const location = useLocation();
+   const [fotoPerfil, setFotoPerfil] = useState("");
 
     const [usuario, setUsuario] = useState("");
     const [email, setEmail] = useState("");
@@ -134,6 +135,7 @@ function AppContenido() {
     const cerrarSesion = () => {
         setUsuario("");
         setEmail("");
+        setFotoPerfil("");
         setRol("");
         cambiarPagina("login");
     };
@@ -144,7 +146,11 @@ function AppContenido() {
 
             {mostrarSidebar && <Sidebar cambiarPagina={cambiarPagina} />}
 {mostrarSidebar && (
-    <Topbar usuario={usuario} cambiarPagina={cambiarPagina} />
+    <Topbar
+        usuario={usuario}
+        fotoPerfil={fotoPerfil}
+        cambiarPagina={cambiarPagina}
+    />
 )}
 
             <div className={mostrarSidebar ? "contenido-con-sidebar" : ""}>
@@ -216,6 +222,8 @@ function AppContenido() {
                                 usuario={usuario}
                                 email={email}
                                 rol={rol}
+                                fotoPerfil={fotoPerfil}
+                                setFotoPerfil={setFotoPerfil}
                                 cambiarPagina={cambiarPagina}
                                 cerrarSesion={cerrarSesion}
                             />

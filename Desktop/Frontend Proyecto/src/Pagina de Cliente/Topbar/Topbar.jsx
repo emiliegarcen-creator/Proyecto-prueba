@@ -1,7 +1,7 @@
 import { useLocation } from "react-router-dom";
 import "./Topbar.css";
 
-function Topbar({ usuario, cambiarPagina }) {
+function Topbar({ usuario, fotoPerfil, cambiarPagina }) {
     const location = useLocation();
     const enPerfil = location.pathname === "/perfil";
 
@@ -12,7 +12,15 @@ function Topbar({ usuario, cambiarPagina }) {
                 onClick={() => cambiarPagina("perfil")}
                 title="Mi perfil"
             >
-                <span className="topbar-icono"></span>
+                {fotoPerfil ? (
+                    <img
+                        src={fotoPerfil}
+                        alt="Perfil"
+                        className="topbar-foto"
+                    />
+                ) : (
+                    <span className="topbar-icono">👤</span>
+                )}
                 <span className="topbar-nombre">{usuario || "Perfil"}</span>
             </button>
         </header>

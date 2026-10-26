@@ -93,6 +93,7 @@ function TicketMantenimiento({
                         <img
                             src={imagen}
                             alt="Vista previa"
+                            className="ticket-imagen"
                         />
                     )}
                 </div>

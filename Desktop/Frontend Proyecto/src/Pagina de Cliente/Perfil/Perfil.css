@@ -9,3 +9,18 @@
   box-shadow: 0px 0px 0px 8px #C6B1D7;
 }
 
+.foto-perfil {
+    width: 120px;
+    height: 120px;
+    object-fit: cover;      /* recorta para llenar el círculo sin deformar */
+    border-radius: 50%;
+    border: 2px solid #000000;
+}
+
+.foto-perfil-img {
+    width: 120px;
+    height: 120px;
+    object-fit: cover;      /* recorta para llenar el círculo sin deformar */
+    border-radius: 50%;
+    border: 2px solid #000000;
+}
