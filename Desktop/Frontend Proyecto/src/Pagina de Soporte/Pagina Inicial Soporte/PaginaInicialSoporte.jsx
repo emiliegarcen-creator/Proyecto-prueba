@@ -4,7 +4,8 @@ import { useState } from "react";
 function PaginaInicialSoporte({
     tickets,
     actualizarTicket,
-    registrarHistorial
+    registrarHistorial,
+    cambiarPagina
 }) {
     // Estados para filtros
     const [mostrarFiltros, setMostrarFiltros] = useState(false);
@@ -17,9 +18,13 @@ function PaginaInicialSoporte({
     // Prioridad desplegable
     const [menuPrioridadId, setMenuPrioridadId] = useState(null);
 
-    // Popups
-    const [ticketDetalle, setTicketDetalle] = useState(null);
-    const [ticketACerrar, setTicketACerrar] = useState(null);
+    // Popups: se guarda solo el id y el ticket se busca en la lista,
+    // así el popup siempre muestra los datos actualizados
+    const [idTicketDetalle, setIdTicketDetalle] = useState(null);
+    const [idTicketACerrar, setIdTicketACerrar] = useState(null);
+
+    const ticketDetalle = tickets.find((t) => t.id === idTicketDetalle) || null;
+    const ticketACerrar = tickets.find((t) => t.id === idTicketACerrar) || null;
 
     // Formulario Cierre de Ticket
     const [reparadoPor, setReparadoPor] = useState("");
@@ -58,7 +63,12 @@ function PaginaInicialSoporte({
         e.preventDefault();
 
         // Campos obligatorios
-        if (!reparadoPor || !arreglos || !horarioEntrega || !cedulaDueño) {
+        if (
+            !reparadoPor.trim() ||
+            !arreglos.trim() ||
+            !horarioEntrega ||
+            !cedulaDueño.trim()
+        ) {
             alert("Todos los campos son obligatorios.");
             return;
         }
@@ -70,7 +80,7 @@ function PaginaInicialSoporte({
             arreglos: arreglos,
             horarioEntrega: horarioEntrega,
             cedulaDueño: cedulaDueño,
-            fechaCierre: new Date().toLocaleDateString()
+            fechaCierre: new Date().toISOString().slice(0, 10)
         };
 
         registrarHistorial(registroHistorial);
@@ -88,16 +98,32 @@ function PaginaInicialSoporte({
         setArreglos("");
         setHorarioEntrega("");
         setCedulaDueño("");
-        setTicketACerrar(null);
+        setIdTicketACerrar(null);
+    };
+
+    // Cancelar el cierre y limpiar lo escrito
+    const cancelarCierre = () => {
+        setReparadoPor("");
+        setArreglos("");
+        setHorarioEntrega("");
+        setCedulaDueño("");
+        setIdTicketACerrar(null);
     };
 
     // Filtrar lista de tickets
     const ticketsFiltrados = tickets.filter((ticket) => {
         const coincideEstado = !filtroEstado || ticket.estado === filtroEstado;
         const coincidePrioridad = !filtroPrioridad || ticket.prioridad === filtroPrioridad;
-        const coincideFecha = !filtroFecha || (ticket.fecha && ticket.fecha.includes(filtroFecha));
-        const coincideId = !filtroId || ticket.idComputadora.toString().includes(filtroId);
-        const coincideDueño = !filtroDueño || (ticket.dueño && ticket.dueño.toLowerCase().includes(filtroDueño.toLowerCase()));
+        // La fecha se guarda como AAAA-MM-DD, igual que el input type="date"
+        const coincideFecha = !filtroFecha || ticket.fecha === filtroFecha;
+        // Los tickets de mantenimiento no tienen idComputadora
+        const coincideId =
+            !filtroId ||
+            String(ticket.idComputadora ?? "").includes(filtroId.trim());
+        const coincideDueño =
+            !filtroDueño ||
+            (ticket.dueño &&
+                ticket.dueño.toLowerCase().includes(filtroDueño.trim().toLowerCase()));
 
         return (
             coincideEstado &&
@@ -108,12 +134,38 @@ function PaginaInicialSoporte({
         );
     });
 
+    // Menú desplegable de prioridad (se reutiliza en la lista y en el popup)
+    const renderMenuPrioridad = (ticket) =>
+        menuPrioridadId === ticket.id && (
+            <div>
+                <button onClick={() => cambiarPrioridad(ticket, "Baja")}>
+                    Baja
+                </button>
+                <button onClick={() => cambiarPrioridad(ticket, "Media")}>
+                    Media
+                </button>
+                <button onClick={() => cambiarPrioridad(ticket, "Alta")}>
+                    Alta
+                </button>
+            </div>
+        );
+
+    // Título según el tipo de ticket
+    const tituloTicket = (ticket) =>
+        ticket.tipo === "mantenimiento"
+            ? "Ticket de mantenimiento"
+            : "Ticket de reparación";
+
     return (
         <div>
-            {/* Botón de filtrar */}
+            {/* Botón de filtrar y acceso al historial */}
             <div>
                 <button onClick={() => setMostrarFiltros(!mostrarFiltros)}>
                     Filtrar <span>▼</span>
+                </button>
+
+                <button onClick={() => cambiarPagina("historial")}>
+                    Ver historial
                 </button>
             </div>
 
@@ -164,15 +216,21 @@ function PaginaInicialSoporte({
 
             {/* Lista de tickets */}
             <div>
+                {ticketsFiltrados.length === 0 && (
+                    <p>No hay tickets para mostrar.</p>
+                )}
+
                 {ticketsFiltrados.map((ticket) => (
                     <div key={ticket.id}>
                         <div>
                             <div>
-                                {ticket.estado === "Pendiente" ? (
+                                {ticket.estado === "Pendiente" && (
                                     <button onClick={() => tomarMaquina(ticket)}>
                                         Tomar Máquina
                                     </button>
-                                ) : (
+                                )}
+
+                                {ticket.estado === "En proceso" && (
                                     <>
                                         <button
                                             onClick={() =>
@@ -186,22 +244,9 @@ function PaginaInicialSoporte({
                                             Cambiar Prioridad
                                         </button>
 
-                                        {/* Menú desplegable de prioridad */}
-                                        {menuPrioridadId === ticket.id && (
-                                            <div>
-                                                <button onClick={() => cambiarPrioridad(ticket, "Baja")}>
-                                                    Baja
-                                                </button>
-                                                <button onClick={() => cambiarPrioridad(ticket, "Media")}>
-                                                    Media
-                                                </button>
-                                                <button onClick={() => cambiarPrioridad(ticket, "Alta")}>
-                                                    Alta
-                                                </button>
-                                            </div>
-                                        )}
+                                        {renderMenuPrioridad(ticket)}
 
-                                        <button onClick={() => setTicketACerrar(ticket)}>
+                                        <button onClick={() => setIdTicketACerrar(ticket.id)}>
                                             Cerrar Ticket
                                         </button>
                                     </>
@@ -209,15 +254,17 @@ function PaginaInicialSoporte({
                             </div>
 
                             <div>
-                                <strong>
-                                    {ticket.dueño || "Nombre del Alumno"}
-                                </strong>
-                                <div>{ticket.fecha || "10/07/2026"}</div>
+                                <strong>{tituloTicket(ticket)}</strong>
+                                <div>{ticket.dueño}</div>
+                                <div>{ticket.fecha}</div>
+                                <div>
+                                    Estado: {ticket.estado} · Prioridad: {ticket.prioridad}
+                                </div>
                             </div>
                         </div>
 
                         {/* Popup de información del ticket */}
-                        <button onClick={() => setTicketDetalle(ticket)}>
+                        <button onClick={() => setIdTicketDetalle(ticket.id)}>
                             Descripción
                         </button>
                     </div>
@@ -230,35 +277,43 @@ function PaginaInicialSoporte({
                     <div>
                         <div>
                             <div>
-                                {ticketDetalle.estado === "Pendiente" ? (
+                                {ticketDetalle.estado === "Pendiente" && (
                                     <button
                                         onClick={() => {
                                             tomarMaquina(ticketDetalle);
-                                            setTicketDetalle(null);
+                                            setIdTicketDetalle(null);
                                         }}
                                     >
                                         Tomar Máquina
                                     </button>
-                                ) : (
-                                    <button
-                                        onClick={() => {
-                                            setMenuPrioridadId(
-                                                menuPrioridadId === ticketDetalle.id
-                                                    ? null
-                                                    : ticketDetalle.id
-                                            );
-                                        }}
-                                    >
-                                        Cambiar Prioridad
-                                    </button>
+                                )}
+
+                                {ticketDetalle.estado === "En proceso" && (
+                                    <>
+                                        <button
+                                            onClick={() =>
+                                                setMenuPrioridadId(
+                                                    menuPrioridadId === ticketDetalle.id
+                                                        ? null
+                                                        : ticketDetalle.id
+                                                )
+                                            }
+                                        >
+                                            Cambiar Prioridad
+                                        </button>
+
+                                        {renderMenuPrioridad(ticketDetalle)}
+                                    </>
                                 )}
                             </div>
 
                             <div>
-                                <strong>
-                                    {ticketDetalle.dueño || "Nombre"}
-                                </strong>
-                                <div>{ticketDetalle.fecha || "10/07/2026"}</div>
+                                <strong>{tituloTicket(ticketDetalle)}</strong>
+                                <div>{ticketDetalle.dueño}</div>
+                                <div>{ticketDetalle.fecha}</div>
+                                <div>
+                                    Estado: {ticketDetalle.estado} · Prioridad: {ticketDetalle.prioridad}
+                                </div>
                             </div>
                         </div>
 
@@ -267,25 +322,52 @@ function PaginaInicialSoporte({
                             <p>{ticketDetalle.descripcion}</p>
                         </div>
 
-                        <div>
+                        {/* Datos según el tipo de ticket */}
+                        {ticketDetalle.tipo === "mantenimiento" ? (
                             <div>
-                                <strong>ID:</strong> {ticketDetalle.idComputadora}
+                                <div>
+                                    <strong>Lugar:</strong> {ticketDetalle.lugar}
+                                </div>
                             </div>
+                        ) : (
                             <div>
-                                <strong>Locker:</strong> {ticketDetalle.locker}
+                                <div>
+                                    <strong>ID:</strong> {ticketDetalle.idComputadora}
+                                </div>
+                                <div>
+                                    <strong>Locker:</strong> {ticketDetalle.locker}
+                                </div>
+                                <div>
+                                    <strong>Cargador:</strong> {ticketDetalle.cargador}
+                                </div>
+                                <div>
+                                    <strong>Año:</strong> {ticketDetalle.año}
+                                </div>
+                                <div>
+                                    <strong>Modelo:</strong> {ticketDetalle.modelo}
+                                </div>
                             </div>
-                            <div>
-                                <strong>Cargador:</strong> {ticketDetalle.cargador}
-                            </div>
-                            <div>
-                                <strong>Año:</strong> {ticketDetalle.año}
-                            </div>
-                            <div>
-                                <strong>Modelo:</strong> {ticketDetalle.modelo}
-                            </div>
-                        </div>
+                        )}
 
-                        <button onClick={() => setTicketDetalle(null)}>
+                        {/* Imagen adjunta */}
+                        {ticketDetalle.imagen && (
+                            <div>
+                                <strong>Imagen adjunta:</strong>
+                                <br />
+                                <img
+                                    src={ticketDetalle.imagen}
+                                    alt="Archivo adjunto del ticket"
+                                    style={{ width: "200px" }}
+                                />
+                            </div>
+                        )}
+
+                        <button
+                            onClick={() => {
+                                setMenuPrioridadId(null);
+                                setIdTicketDetalle(null);
+                            }}
+                        >
                             Cerrar
                         </button>
                     </div>
@@ -343,7 +425,7 @@ function PaginaInicialSoporte({
 
                             <button
                                 type="button"
-                                onClick={() => setTicketACerrar(null)}
+                                onClick={cancelarCierre}
                             >
                                 Cancelar
                             </button>
